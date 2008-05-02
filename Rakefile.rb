@@ -22,7 +22,7 @@ spec = Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.summary = "Ruby based concordion"
   s.name = 'rcor'
-  s.version = '0.6.1'
+  s.version = '0.6.2'
   s.requirements << 'hpricot'
   s.require_path = 'lib'
   s.autorequire = 'rake'

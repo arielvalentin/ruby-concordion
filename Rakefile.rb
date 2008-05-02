@@ -22,8 +22,11 @@ spec = Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.summary = "Ruby based concordion"
   s.name = 'rcor'
-  s.version = '0.6.2'
-  s.requirements << 'hpricot'
+  s.version = '0.6.3'
+  s.author = 'Ben Goodspeed'
+  s.email = 'b.goodspeed@gmail.com'
+  s.add_dependency('hpricot', '>= 0.6')
+  s.requirements << 'hpricot HTML parser'
   s.require_path = 'lib'
   s.autorequire = 'rake'
   s.files = PKG_FILES

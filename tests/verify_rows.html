@@ -1,0 +1,46 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+  <body>
+    <p>Given these users:</p>
+
+    <table>
+        <tr>
+	  <th concordion:set="#username">Username</th>
+	  <th concordion:execute="setupUser(#username, #TEXT)">Other</th>
+	</tr>
+        <tr>
+	  <td>john.lennon</td>
+	  <td>monkeys</td>
+	</tr>
+        <tr>
+	  <td>ringo.starr</td>
+	  <td>chucknorris</td>
+	</tr>
+        <tr>
+	  <td>george.harrison</td>
+	  <td>dishwasher</td>
+	</tr>
+        <tr>
+	  <td>paul.mcartney</td>
+	  <td>flamingweasel</td>
+	</tr>
+    </table>
+
+    <p>Searching for "<b concordion:set="#searchString">arr</b>" will return:</p>
+
+    <table concordion:verifyRows="#users = getSearchResultsFor(#searchString)">
+        <tr>
+	  <th concordion:assertEquals="#user.name">Matching Usernames</th>
+	  <th concordion:assertEquals="#user.other">and their Other field</th>
+	</tr>
+        <tr>
+	  <td>george.harrison</td>
+	  <td>dishwasher</td>
+	</tr>
+        <tr>
+	  <td>ringo.starr</td>
+	  <td>chucknorris</td>
+	</tr>
+    </table>
+  </body>
+</html>
+ 

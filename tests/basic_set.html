@@ -1,0 +1,8 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+    <body>
+      Here's some text
+        <p concordion:set="#username">Chuck Norris</p>
+	<p concordion:assertEquals="greetingFor(#username)">Hello Chuck Norris, you nancy-boy.</p>
+	it should be in the output.
+    </body>
+</html>

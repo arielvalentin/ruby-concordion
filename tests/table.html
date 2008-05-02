@@ -1,0 +1,28 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+  <body>
+    <table>
+      <tr>
+	<th concordion:execute="#row_result = split_by_colons(#TEXT)">Given Text:</th>
+	<th concordion:assertEquals="#row_result.alpha">First Field:</th>
+	<th concordion:assertEquals="#row_result.beta">Second Field:</th>
+	<th concordion:assertEquals="#row_result.gamma">Third Field:</th>
+      </tr>
+
+      <tr>
+	<td>a:b:c</td>
+	<td>A</td>
+	<td>B</td>
+	<td>C</td>
+      </tr>
+
+      <tr>
+	<td>d:e:f</td>
+	<td>D</td>
+	<td>E</td>
+	<td>F</td>
+      </tr>
+	
+    </table>
+
+  </body>
+</html>

@@ -1,0 +1,7 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+    <body>
+        <p concordion:execute="#result = split_name(#TEXT)">No Way</p>
+	<p concordion:assertEquals="#result.first">No</p>
+	<p concordion:assertEquals="#result.last">Way</p>
+    </body>
+</html>

@@ -4,7 +4,7 @@ class ConcordionCSSDecorator
       head = root.search("html").prepend('<head></head>')
     end
 
-    html.search("head").append( '<link rel="stylesheet" type="text/css" href="concordion.css"/>' )
+    html.search("head").append( '<style type="text/css"> .concordion_failure { background-color: red } .concordion_success { background-color: green }' )
   end
 
   def decorate_tag(rv, tag) 

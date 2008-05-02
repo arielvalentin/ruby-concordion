@@ -1,8 +1,6 @@
 require 'user'
 
 class GoldmasterTableTest < GoldmasterTestCase
-
-
   def setup
     @users = []
   end

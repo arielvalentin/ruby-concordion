@@ -16,13 +16,13 @@ end
 task :default => [:clean, :test] 
 
 PKG_FILES = FileList['**/*'].exclude(/_test_output\.html$/)
-                     
+PKG_VERSION = '0.7.0'                     
 
 spec = Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.summary = "Ruby based concordion"
   s.name = 'rcor'
-  s.version = '0.6.3'
+  s.version = PKG_VERSION
   s.author = 'Ben Goodspeed'
   s.email = 'b.goodspeed@gmail.com'
   s.add_dependency('hpricot', '>= 0.6')

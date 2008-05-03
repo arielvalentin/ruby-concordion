@@ -47,8 +47,8 @@ class Concordion
   end
 
 
-  def evaluate(cpr, test_context)
-    @lookahead_handler.handle_lookahead(cpr, test_context)
+  def evaluate(cpr, test_context, processor)
+    @lookahead_handler.handle_lookahead(cpr, test_context, processor)
 
     return { :result => true } if @binder.bind_if_set_command(cpr) 
 

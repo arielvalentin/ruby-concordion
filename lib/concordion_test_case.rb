@@ -1,6 +1,7 @@
 require 'concordion_utility'
 require 'concordion_reader'
 require 'concordion_parser'
+require 'concordion_processor'
 require 'concordion_parse_result'
 require 'concordion_test_case'
 require 'concordion_writer'
@@ -17,7 +18,9 @@ class ConcordionTestCase < Test::Unit::TestCase
   def self.inherited(subclass)
     subclass.class_eval do
       define_method :test_spec do
-        run_spec(snake_cased_test_name(subclass.to_s))
+        filename = snake_cased_test_name(subclass.to_s)
+        parse_spec(filename)
+        run_spec(filename)
       end
     end
     subclass
@@ -26,11 +29,14 @@ class ConcordionTestCase < Test::Unit::TestCase
   def self.default_config
     concordion = Concordion.new
     parser = ConcordionParser.new(ConcordionReader.new, concordion)
+    decorator = ConcordionCSSDecorator.new
+    processor = ConcordionProcessor.new(concordion, decorator)
     { :expected_failure_count => @@EXPECTED_FAILURE_COUNT,
       :parser => parser,
       :writer => ConcordionWriter.new,
       :concordion => concordion,
-      :decorator => ConcordionCSSDecorator.new,
+      :decorator => decorator,
+      :processor => processor,
       :write_goldmaster => false
     }
   end
@@ -43,7 +49,7 @@ class ConcordionTestCase < Test::Unit::TestCase
     @concordion = config[:concordion]
     @decorator = config[:decorator]
     @expected_failure_count = config[:expected_failure_count]
-
+    @processor = config[:processor]
   end
 
   def test_something_trivial_to_shut_runit_up
@@ -58,28 +64,24 @@ class ConcordionTestCase < Test::Unit::TestCase
     @trivial
   end
 
-  def run_spec(filename)
+  def parse_spec(filename)
     @parser.parse(filename)
     assert_concordion_document
+  end
+
+  def run_spec(filename)
     @decorator.add_concordion_css_link(@parser.root, @parser.html)
 
     failures = 0
 
     @parser.each_eligible_concordion_element do |elem|
-      failures += process(elem)
+      failures += @processor.process(elem, self)
     end
     
     outfilename = @writer.calculate_filename_and_write(@parser.root, filename)
 
     assert_no_failures(failures, outfilename)
   end   
-
-  def process(tag)
-    attr = concordion_cmd_attr_for(tag)
-    instrumented_value = tag.get_attribute(attr)
-    rv = @concordion.evaluate(create_parse_result(tag, attr, instrumented_value), self)
-    @decorator.decorate_tag(rv, tag)
-  end
 
 
   def assert_no_failures(failures, outfilename)
@@ -93,10 +95,6 @@ class ConcordionTestCase < Test::Unit::TestCase
 
 
 
-
-  def create_parse_result(tag, attr, value)
-    ConcordionParseResult.new(instrumentation(attr), value, tag.inner_text, tag)
-  end
 
 
 end

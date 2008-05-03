@@ -1,11 +1,17 @@
+require 'concordion_utility'
+require 'concordion_invocation_string_builder'
+
 class Concordion
   @@TEXT_VAR = "#TEXT"
-
+  def self.TEXT_VAR
+    @@TEXT_VAR
+  end
   attr_reader :verification_variable
   include ConcordionUtility
   def initialize
     @memory = {}
     @verification_variable = nil
+    @invocation_builder = ConcordionInvocationStringBuilder.new(self)
     set_variable(@@TEXT_VAR, @@TEXT_VAR)
   end
   def set_variable(variable, value)
@@ -25,18 +31,7 @@ class Concordion
   end
 
   def build_invocation_string(conc_call, content)
-    base = "self.send('#{concordion_method_name(conc_call)}'"
-    if has_arguments?(conc_call)
-      arg_vars = concordion_arguments(conc_call)
-      arg_values = arg_vars.collect {|var| "'#{get_variable(var)}'" }
-      
-      args = arg_values.join(", ")
-      base += ", " + args
-    end
-
-    rv = base + ")"
-
-    rv.gsub(@@TEXT_VAR, content)
+    @invocation_builder.build_invocation_string(conc_call,content)
   end
 
   def dereference(conc_call)

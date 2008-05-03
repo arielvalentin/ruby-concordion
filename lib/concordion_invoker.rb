@@ -14,5 +14,19 @@ class ConcordionInvoker
     end
     sut_rv
   end
+  def invoke_concordion(cpr, sut_rv)
+    commands[cpr.concordion_command].call(sut_rv, cpr.content)
+  end
+
+
+  def commands
+    cmds = {}
+    cmds["assertequals"] = Proc.new { |a, b| { :result => a == b, :actual => a, :expected => b } }
+    cmds["execute"] = Proc.new { |a,b| {:result => true, :actual => a, :expected => b } }
+    cmds["verifyrows"] = Proc.new { |a,b| { :result => true, :actual => a, :expected => b } }
+#    cmds["verifyrows"] = Proc.new { |a,b| raise Exception.new("verify called: #{a}\nb:#{b}") }
+    cmds
+  end
+
 
 end

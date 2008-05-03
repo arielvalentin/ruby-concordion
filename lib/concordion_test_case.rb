@@ -21,6 +21,7 @@ class ConcordionTestCase < Test::Unit::TestCase
         filename = snake_cased_test_name(subclass.to_s)
         parse_spec(filename)
         run_spec(filename)
+        report_spec(filename)
       end
     end
     subclass
@@ -67,34 +68,26 @@ class ConcordionTestCase < Test::Unit::TestCase
   def parse_spec(filename)
     @parser.parse(filename)
     assert_concordion_document
+    @decorator.add_concordion_css_link(@parser.root, @parser.html)
   end
 
   def run_spec(filename)
-    @decorator.add_concordion_css_link(@parser.root, @parser.html)
-
-    failures = 0
-
+    @failures = 0
     @parser.each_eligible_concordion_element do |elem|
-      failures += @processor.process(elem, self)
-    end
-    
-    outfilename = @writer.calculate_filename_and_write(@parser.root, filename)
-
-    assert_no_failures(failures, outfilename)
+      @failures += @processor.process(elem, self)
+    end    
   end   
 
+  def report_spec(filename)
+    outfilename = @writer.calculate_filename_and_write(@parser.root, filename)
+    assert_no_failures(@failures, outfilename)
+  end
 
   def assert_no_failures(failures, outfilename)
     assert_equal @expected_failure_count, failures, "Wrote output to #{outfilename}"    
   end
 
-
   def assert_concordion_document
     assert_equal "http://www.concordion.org/2007/concordion", @parser.html.get_attribute("xmlns:concordion")
   end
-
-
-
-
-
 end

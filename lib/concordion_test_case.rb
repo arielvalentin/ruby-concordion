@@ -7,6 +7,7 @@ require 'concordion_writer'
 require 'concordion'
 require 'concordion_css_decorator'
 require 'test/unit'
+
 class ConcordionTestCase < Test::Unit::TestCase
 
   @@EXPECTED_FAILURE_COUNT = 0
@@ -64,8 +65,8 @@ class ConcordionTestCase < Test::Unit::TestCase
 
     failures = 0
 
-    @parser.each_eligible_concordion_element do |elem, attr|
-      failures += process(elem, attr, elem.get_attribute(attr))
+    @parser.each_eligible_concordion_element do |elem|
+      failures += process(elem)
     end
     
     outfilename = @writer.calculate_filename_and_write(@parser.root, filename)
@@ -73,6 +74,12 @@ class ConcordionTestCase < Test::Unit::TestCase
     assert_no_failures(failures, outfilename)
   end   
 
+  def process(tag)
+    attr = concordion_cmd_attr_for(tag)
+    instrumented_value = tag.get_attribute(attr)
+    rv = @concordion.evaluate(create_parse_result(tag, attr, instrumented_value), self)
+    @decorator.decorate_tag(rv, tag)
+  end
 
 
   def assert_no_failures(failures, outfilename)
@@ -85,14 +92,10 @@ class ConcordionTestCase < Test::Unit::TestCase
   end
 
 
-  def process(tag, attr, instrumented_value)
-    rv = @concordion.evaluate(create_parse_result(tag, attr, instrumented_value), self)
-    @decorator.decorate_tag(rv, tag)
-  end
 
 
   def create_parse_result(tag, attr, value)
-    ConcordionParseResult.new(instrumentation(attr), value, tag.inner_text)
+    ConcordionParseResult.new(instrumentation(attr), value, tag.inner_text, tag)
   end
 
 

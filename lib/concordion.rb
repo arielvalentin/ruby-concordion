@@ -50,7 +50,21 @@ class Concordion
     var.send(concordion_property_reference(conc_call))
   end
 
+  def is_element_setter?(elem)
+    !elem.get_attribute('concordion:set').nil?
+  end
+
   def evaluate(cpr, test_context)
+    if cpr.is_execute_command?
+      cpr.tag.search("/*[@]").each {|child|
+        if is_element_setter?(child)
+          test_context.process(child)
+        end
+
+      }
+    end
+
+
     if cpr.is_set_command?
       set_variable(cpr.system_under_test, cpr.content)
       return { :result => true }

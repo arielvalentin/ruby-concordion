@@ -1,10 +1,11 @@
 class ConcordionParseResult
   include ConcordionUtility
-  attr_accessor :concordion_command, :system_under_test, :content
-  def initialize(cmd, sut, content)
+  attr_accessor :concordion_command, :system_under_test, :content, :tag
+  def initialize(cmd, sut, content, tag)
     @concordion_command = cmd
     @system_under_test = sut
     @content = content
+    @tag = tag
   end
   def to_s
     "CPR: #{@concordion_command}, #{@system_under_test}, #{@content}"
@@ -15,6 +16,9 @@ class ConcordionParseResult
   end
   def is_verify_command?
     "verifyrows" == @concordion_command
+  end
+  def is_execute_command?
+    "execute" == @concordion_command
   end
 
   def assignment

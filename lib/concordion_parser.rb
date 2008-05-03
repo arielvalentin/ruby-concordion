@@ -37,7 +37,7 @@ class ConcordionParser
         attr = concordion_cmd_attr_for(elem)
         update_row(elem)
         if !look_for_headers(elem, attr)
-          yield elem, attr
+          yield elem
         end
       end
     end

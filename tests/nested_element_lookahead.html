@@ -1,0 +1,9 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<body>
+<p concordion:execute="#greeting = greetingFor(#firstName)">
+    The greeting "<span concordion:assertEquals="#greeting">Hello Bob!</span>"
+    should be given to user <span concordion:set="#firstName">Bob</span>
+    when he logs in.
+</p>
+</body>
+</html>

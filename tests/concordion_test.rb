@@ -27,30 +27,6 @@ class ConcordionTest < Test::Unit::TestCase
     
   end
 
-  def test_update_does_nothing_if_verification_variable_unset
-    @concordion.verification_variable = nil
-    @concordion.update_verifier(1)
-  end
-
-  def test_update_verification
-    assert @concordion.get_variable("#user").nil?
-    @concordion.set_variable("#users", ["A", "B", "C"])
-    @concordion.verification_variable = "#users" 
-    @concordion.update_verifier(2) # will be one larger because of the header row
-    
-    assert_equal "B", @concordion.get_variable("#user")
-  end
-
-
-  def test_update_verification_automatically_sets_to_zero
-    assert @concordion.get_variable("#user").nil?
-    @concordion.set_variable("#users", ["A", "B", "C"])
-    @concordion.verification_variable = "#users" 
-    
-    assert_equal "A", @concordion.get_variable("#user")
-  end
-
-
   def test_dereference
     @concordion.set_variable("#result", @thingy)
 

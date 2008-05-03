@@ -15,6 +15,7 @@ class ConcordionParser
   def initialize(reader, concordion)
     @reader = reader
     @concordion = concordion
+    @verifier = concordion.verifier
     @last_row = -1
   end
 
@@ -48,7 +49,7 @@ class ConcordionParser
     if on_row
       current_row = on_row.captures[0]
       if current_row != @last_row
-        @concordion.update_verifier(current_row.to_i)
+        @verifier.update_verifier(current_row.to_i)
         @last_row = current_row
       end
     else

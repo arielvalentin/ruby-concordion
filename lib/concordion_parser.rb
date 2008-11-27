@@ -1,6 +1,5 @@
 require 'rubygems'
 
-require 'xmlsimple'
 require 'hpricot'
 require 'concordion_instrumenter'
 

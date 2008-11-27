@@ -1,4 +1,4 @@
-
+require 'goldmaster_test_case'
 
 class GoldmasterFailingTest < GoldmasterTestCase  
   def initialize(suite)

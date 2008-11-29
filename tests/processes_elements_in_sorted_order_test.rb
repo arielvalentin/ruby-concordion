@@ -1,3 +1,5 @@
+require 'test_helper'
+require 'concordion_test_case'
 
 class ProcessesElementsInSortedOrderTest < ConcordionTestCase
 

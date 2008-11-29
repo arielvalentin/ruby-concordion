@@ -1,3 +1,4 @@
+require 'test_helper'
 require 'concordion'
 require 'concordion_verifier'
 

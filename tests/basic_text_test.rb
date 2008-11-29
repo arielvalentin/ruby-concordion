@@ -1,3 +1,6 @@
+require 'test_helper'
+require 'concordion_test_case'
+
 class BasicTextTest < ConcordionTestCase
   def set_name(name)
     @name = name

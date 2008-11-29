@@ -1,4 +1,6 @@
 require 'test/unit'
+require 'test_helper'
+require 'concordion'
 
 class ConcordionTest < Test::Unit::TestCase
 

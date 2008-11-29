@@ -1,4 +1,5 @@
-
+require 'test_helper'
+require 'concordion_parse_result'
 
 class ConcordionParseResultTest < Test::Unit::TestCase
 

@@ -1,3 +1,6 @@
+require 'test_helper'
+require 'concordion_test_case'
+
 class FailingTest < ConcordionTestCase
 
   def initialize(suite)

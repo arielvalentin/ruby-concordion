@@ -1,3 +1,4 @@
+require 'goldmaster_test_case'
 require 'user'
 
 class GoldmasterTableTest < GoldmasterTestCase

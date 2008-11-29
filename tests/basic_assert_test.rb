@@ -1,4 +1,6 @@
+require 'test_helper'
 require 'concordion_test_case'
+
 class BasicAssertTest < ConcordionTestCase
 
   def getGreeting

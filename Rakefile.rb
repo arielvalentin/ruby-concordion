@@ -3,8 +3,9 @@ require 'rake/testtask'
 require 'rake/packagetask'
 require 'rake/gempackagetask'
 require 'rake/clean'
+require 'lib/concordion_environment'
 
-CLEAN.include('*_test_output.html')
+CLEAN.include(ConcordionEnvironment.clean_list)
 
 Rake::TestTask.new do |t|
   t.libs << "test-lib"

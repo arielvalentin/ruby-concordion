@@ -5,6 +5,7 @@ require 'concordion_processor'
 require 'concordion_parse_result'
 require 'concordion_test_case'
 require 'concordion_writer'
+require 'concordion_environment'
 require 'concordion'
 require 'concordion_css_decorator'
 require 'test/unit'
@@ -34,7 +35,7 @@ class ConcordionTestCase < Test::Unit::TestCase
     processor = ConcordionProcessor.new(concordion, decorator)
     { :expected_failure_count => @@EXPECTED_FAILURE_COUNT,
       :parser => parser,
-      :writer => ConcordionWriter.new,
+      :writer => ConcordionWriter.new(ConcordionEnvironment.output_dir),
       :concordion => concordion,
       :decorator => decorator,
       :processor => processor,

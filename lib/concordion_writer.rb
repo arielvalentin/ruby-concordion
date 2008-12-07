@@ -1,4 +1,9 @@
 class ConcordionWriter
+  @@DEFAULT = "."
+  def initialize(output_dir = @@DEFAULT)
+    @output_dir = output_dir.nil? ? @@DEFAULT : output_dir
+  end
+
   def write(data, filename)
 
     if File.exists?(filename)
@@ -17,7 +22,7 @@ class ConcordionWriter
   end
 
   def output_filename_for(name)
-    name.sub(".html", "_test_output.html")
+    File.join(@output_dir, name.sub(".html", "_test_output.html"))
   end
 
 end

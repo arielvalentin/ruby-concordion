@@ -1,18 +1,6 @@
 
-module ConcordionStringUtility
-
-  def has_arguments?(name)
-    name !~ /\(\)$/
-  end
-
-  def concordion_assignment(name)
-    name.split("=")[0].strip
-  end
-
-  def has_assignment?(name)
-    name =~ /=/
-  end
-
+module SnakeCaseUtility
+  
   def snake_case(str)
     s = str.gsub( /([A-Z])/, '_\1')
     if s.index("_") == 0
@@ -31,6 +19,32 @@ module ConcordionStringUtility
   def snake_cased_goldmaster_name(str)
     snake_cased_test_name(str).gsub(".html", "_goldmaster.html")
   end
+  
+end
+
+module PluralToSingularUtility
+  
+  def singular(str)
+    str.sub(/s$/, "")
+  end
+end
+
+module ConcordionStringUtility
+  include SnakeCaseUtility
+  include PluralToSingularUtility
+  
+  def has_arguments?(name)
+    name !~ /\(\)$/
+  end
+
+  def concordion_assignment(name)
+    name.split("=")[0].strip
+  end
+
+  def has_assignment?(name)
+    name =~ /=/
+  end
+
 
   def concordion_method_name(name)
     if name =~ /\(/
@@ -44,10 +58,6 @@ module ConcordionStringUtility
     end
 
     base.split("=")[1].strip
-  end
-
-  def singular(str)
-    str.sub(/s$/, "")
   end
 
 end

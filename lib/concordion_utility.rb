@@ -2,13 +2,17 @@
 require 'concordion_constants'
 require 'concordion_string_utility'
 
-module ConcordionUtility
-  include ConcordionConstants
-  include ConcordionStringUtility
-
+module ConcordionConvenience
   def methods_for(clazz)
     (clazz.methods - Object.methods).sort 
   end
+end
+
+module ConcordionUtility
+  include ConcordionConstants
+  include ConcordionStringUtility
+  include ConcordionConvenience
+
 
   def instrumentation(attr)
     attr.split(":")[1]

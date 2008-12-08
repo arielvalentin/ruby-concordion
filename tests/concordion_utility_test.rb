@@ -4,14 +4,14 @@ require 'concordion_utility'
 class ConcordionUtilityTest < Test::Unit::TestCase
   include ConcordionUtility
 
-  def testSupported
+  def test_supported
     assert supported?('p')
     assert supported?("p")
     assert supported?("P")
     assert !supported?("R")
   end   
 
-  def testSnakeCase
+  def test_snakeCase
     assert_equal "bob", snake_case("bob")
     assert_equal "bob", snake_case("Bob")
     assert_equal "camel_case", snake_case("CamelCase")
@@ -19,14 +19,14 @@ class ConcordionUtilityTest < Test::Unit::TestCase
   end
 
 
-  def testSnakeCasedTestName
+  def test_snake_cased_test_name
     assert_equal "bob.html", snake_cased_test_name("bob")
     assert_equal "bob.html", snake_cased_test_name("Bob")
     assert_equal "bob.html", snake_cased_test_name("BobTest")
     assert_equal "bob_case.html", snake_cased_test_name("BobCaseTest")
   end
 
-  def testSnakeCased_goldmaster_name
+  def test_snake_cased_goldmaster_name
     assert_equal "bob_goldmaster.html", snake_cased_goldmaster_name("bob")
     assert_equal "bob_goldmaster.html", snake_cased_goldmaster_name("Bob")
     assert_equal "bob_goldmaster.html", snake_cased_goldmaster_name("BobTest")

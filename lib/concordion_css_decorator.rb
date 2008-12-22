@@ -1,10 +1,16 @@
+require 'concordion_css'
+
 class ConcordionCSSDecorator
   def add_concordion_css_link(root, html)
     if html.at("head").nil?
-      head = root.search("html").prepend('<head></head>')
+      root.search("html").prepend('<head></head>')
     end
 
-    html.search("head").append( '<style type="text/css"> .concordion_failure { background-color: red } .concordion_success { background-color: green }' )
+    html.search("head").append("<style type='text/css'>#{css}</style>")
+  end
+
+  def css
+    ConcordionCSS.css_string
   end
 
   def decorate_tag(rv, tag) 

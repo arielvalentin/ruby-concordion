@@ -1,4 +1,9 @@
-<html xmlns:concordion="http://www.concordion.org/2007/concordion"><head><style type="text/css">* {
+ 
+
+module ConcordionCSS
+  def self.css_string
+    css = <<-eoscss
+* {
   font-family: Arial;
 }
 body {
@@ -155,49 +160,9 @@ ins {
 }
 .commentary, .commentary * {
   font-size: 8pt;
-}</style></head>
-  <body>
-    <p>Given these users:</p>
-
-    <table>
-        <tr>
-	  <th concordion:set="#username">Username</th>
-	  <th concordion:execute="setupUser(#username, #TEXT)">Other</th>
-	</tr>
-        <tr>
-	  <td class="concordion_success" concordion:set="#username">john.lennon</td>
-	  <td class="concordion_success" concordion:execute="setupUser(#username, #TEXT)">monkeys</td>
-	</tr>
-        <tr>
-	  <td class="concordion_success" concordion:set="#username">ringo.starr</td>
-	  <td class="concordion_success" concordion:execute="setupUser(#username, #TEXT)">chucknorris</td>
-	</tr>
-        <tr>
-	  <td class="concordion_success" concordion:set="#username">george.harrison</td>
-	  <td class="concordion_success" concordion:execute="setupUser(#username, #TEXT)">dishwasher</td>
-	</tr>
-        <tr>
-	  <td class="concordion_success" concordion:set="#username">paul.mcartney</td>
-	  <td class="concordion_success" concordion:execute="setupUser(#username, #TEXT)">flamingweasel</td>
-	</tr>
-    </table>
-
-    <p>Searching for "<b class="concordion_success" concordion:set="#searchString">arr</b>" will return:</p>
-
-    <table class="concordion_success" concordion:verifyrows="#users = getSearchResultsFor(#searchString)">
-        <tr>
-	  <th concordion:assertequals="#user.name">Matching Usernames</th>
-	  <th concordion:assertequals="#user.other">and their Other field</th>
-	</tr>
-        <tr>
-	  <td concordion:assertequals="#user.name" class="concordion_success">george.harrison</td>
-	  <td concordion:assertequals="#user.other" class="concordion_success">dishwasher</td>
-	</tr>
-        <tr>
-	  <td concordion:assertequals="#user.name" class="concordion_success">ringo.starr</td>
-	  <td concordion:assertequals="#user.other" class="concordion_success">chucknorris</td>
-	</tr>
-    </table>
-  </body>
-</html>
- 
+}
+  eoscss
+  
+  css.strip  
+  end
+end

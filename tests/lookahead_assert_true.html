@@ -1,0 +1,25 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<body>
+  <p>The greeting for user <span concordion:set="#firstName">Bob</span>
+     will be:
+     <span concordion:assertEquals="greeting_for(#firstName)">Hello Bob!</span>
+  </p>
+  
+  <p>The first name
+     <span concordion:assertTrue="starts_with(#firstName, #letter)">starts
+     with <b concordion:set="#letter">B</b></span>.
+  </p>
+
+  <p>The first name
+     <span concordion:assertTrue="not_starts_with(#firstName, #letter)">starts
+     with <b concordion:set="#letter">Z</b></span>.
+  </p>
+
+  <p>The first name
+     <span concordion:assertTrue="starts_with(#firstName, #letter)">starts
+     with <b concordion:set="#letter">B</b></span>.
+  </p>
+
+
+  </body>
+</html>

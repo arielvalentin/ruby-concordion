@@ -56,7 +56,9 @@ class Concordion
 
     sut_rv = @invoker.invoke_sut(cpr, test_context)
     @binder.handle_assignment(cpr, sut_rv)
-    @invoker.invoke_concordion(cpr, sut_rv)
+    conc_rv = @invoker.invoke_concordion(cpr, sut_rv)
+    
+    conc_rv
   end
 
 

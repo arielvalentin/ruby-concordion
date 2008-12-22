@@ -12,6 +12,7 @@ class ConcordionInvoker
       invocation_str = @builder.build_invocation_string(cpr.system_under_test, cpr.content)
       sut_rv = test_context.instance_eval invocation_str
     end
+    
     sut_rv
   end
   def invoke_concordion(cpr, sut_rv)
@@ -24,7 +25,7 @@ class ConcordionInvoker
     cmds["assertequals"] = Proc.new { |a, b| { :result => a == b, :actual => a, :expected => b } }
     cmds["execute"] = Proc.new { |a,b| {:result => true, :actual => a, :expected => b } }
     cmds["verifyrows"] = Proc.new { |a,b| { :result => true, :actual => a, :expected => b } }
-#    cmds["verifyrows"] = Proc.new { |a,b| raise Exception.new("verify called: #{a}\nb:#{b}") }
+    cmds["asserttrue"] = Proc.new { |a, b| { :result => a, :actual => a,  :expected => true } }
     cmds
   end
 

@@ -7,13 +7,11 @@ class ConcordionLookaheadHandler
   end
 
   def handle_lookahead(cpr, test_context, processor)
-    if cpr.is_execute_command?
-      cpr.tag.search("/*[@]").each {|child|
-        if is_element_setter?(child)
-          processor.process(child, test_context)
-        end
-      }
-    end
+    cpr.tag.search("/*[@]").each {|child|
+      if is_element_setter?(child)
+        processor.process(child, test_context)
+      end
+    }
   end
 
 end

@@ -1,6 +1,10 @@
  
 
 module ConcordionCSS
+  def self.css_filename
+    "concordion.css"
+  end
+
   def self.css_string
     css = <<-eoscss
 * {

@@ -15,10 +15,6 @@ class GoldmasterTestCase < ConcordionTestCase
     trivial
   end
 
-  def getGreeting
-    "Hello World!"
-  end
-
 
   def teardown
     if @write_goldmaster

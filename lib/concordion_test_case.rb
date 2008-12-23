@@ -39,7 +39,8 @@ class ConcordionTestCase < Test::Unit::TestCase
       :concordion => concordion,
       :decorator => decorator,
       :processor => processor,
-      :write_goldmaster => false
+      :write_goldmaster => false,
+      :css_type => ConcordionEnvironment.css_type
     }
   end
 
@@ -52,6 +53,7 @@ class ConcordionTestCase < Test::Unit::TestCase
     @decorator = config[:decorator]
     @expected_failure_count = config[:expected_failure_count]
     @processor = config[:processor]
+    @css_type = config[:css_type]
   end
 
   def test_something_trivial_to_shut_runit_up
@@ -69,7 +71,7 @@ class ConcordionTestCase < Test::Unit::TestCase
   def parse_spec(filename)
     @parser.parse(filename)
     assert_concordion_document
-    @decorator.add_concordion_css_link(@parser.root, @parser.html)
+    @decorator.add_concordion_css_link(@parser.root, @parser.html, @css_type)
   end
 
   def run_spec(filename)
@@ -80,7 +82,8 @@ class ConcordionTestCase < Test::Unit::TestCase
   end   
 
   def report_spec(filename)
-    outfilename = @writer.calculate_filename_and_write(@parser.root, filename)
+    @decorator.add_css_file_to_output_dir(@writer, @css_type)
+    outfilename = @writer.calculate_filename_and_overwrite(@parser.root, filename)
     assert_no_failures(@failures, outfilename)
   end
 

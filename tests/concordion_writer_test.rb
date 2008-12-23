@@ -1,4 +1,6 @@
 require 'test_helper'
+require 'rubygems'
+require 'mocha'
 
 class ConcordionWriterTest < Test::Unit::TestCase
   def test_output_file_name
@@ -12,4 +14,13 @@ class ConcordionWriterTest < Test::Unit::TestCase
 
 
   end
+  
+  def test_output_file_exists
+    File.expects(:exists?).with("foo/output.css").returns(true)
+    File.expects(:exists?).with("foo/missing").returns(false)
+    
+    assert ConcordionWriter.new("foo").output_file_exists?("output.css")
+    assert !ConcordionWriter.new("foo").output_file_exists?("missing")
+  end
+  
 end

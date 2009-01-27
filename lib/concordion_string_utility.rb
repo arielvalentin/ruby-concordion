@@ -45,7 +45,10 @@ module ConcordionStringUtility
     name =~ /=/
   end
 
-
+  def attr_writer_method?(name)
+    name =~ /=$/
+  end
+  
   def concordion_method_name(name)
     if name =~ /\(/
       base = name.split("(")[0].strip
@@ -56,7 +59,11 @@ module ConcordionStringUtility
     if !has_assignment?(base)
       return base
     end
-
+ 
+    if attr_writer_method?(base)
+      return base
+    end
+    
     base.split("=")[1].strip
   end
 

@@ -1,5 +1,7 @@
 <html xmlns:concordion="http://www.concordion.org/2007/concordion">
     <body>
         <p concordion:assertEquals="greeting()">attribute based</p>
+        <p concordion:execute="greeting=(#TEXT)">updated</p>
+        <p concordion:assertEquals="greeting()">updated</p>
     </body>
 </html>

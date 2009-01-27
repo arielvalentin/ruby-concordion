@@ -41,6 +41,7 @@ class ConcordionUtilityTest < Test::Unit::TestCase
     assert_equal "bleh", concordion_method_name("bleh(foo,bar)")
     assert_equal "bleh", concordion_method_name("bleh  (   foo , bar)")
     assert_equal "foo", concordion_method_name("#baz = foo ( #asdf, #fdsa)")
+    assert_equal "greeting=", concordion_method_name("greeting=(#TEXT)")
   end
 
   def test_conc_var_name

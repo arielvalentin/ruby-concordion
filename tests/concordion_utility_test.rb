@@ -33,7 +33,10 @@ class ConcordionUtilityTest < Test::Unit::TestCase
     assert_equal "bob_case_goldmaster.html", snake_cased_goldmaster_name("BobCaseTest")
   end
 
-
+  def test_conc_method_name_hard
+    assert_equal "greeting=", concordion_method_name("#result = greeting=(#TEXT)")
+  end
+  
   def test_conc_method_name
     assert_equal "invoke", concordion_method_name("invoke()")
     assert_equal "invoke", concordion_method_name("invoke(")

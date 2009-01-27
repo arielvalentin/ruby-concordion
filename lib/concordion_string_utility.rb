@@ -61,10 +61,15 @@ module ConcordionStringUtility
     end
  
     if attr_writer_method?(base)
-      return base
+      return base if base.count("=") == 1
+      return assignment(base) + "="
     end
     
-    base.split("=")[1].strip
+    assignment(base)
   end
 
+  def assignment(base)
+    base.split("=")[1].strip
+  end
+  
 end

@@ -8,6 +8,7 @@ class ConcordionInvocationStringBuilder
   end
   
   def build_invocation_string(conc_call, content)
+
     base = "self.send('#{concordion_method_name(conc_call)}'"
     if has_arguments?(conc_call)
       arg_vars = concordion_arguments(conc_call)
@@ -18,7 +19,9 @@ class ConcordionInvocationStringBuilder
     end
 
     rv = base + ")"
-
-    rv.gsub(Concordion.TEXT_VAR, content)
+    stripped = escape_single_quotes(content)
+    rv = rv.gsub(Concordion.TEXT_VAR, stripped)
+    rv
   end
+  
 end

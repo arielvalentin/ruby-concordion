@@ -37,6 +37,10 @@ class ConcordionUtilityTest < Test::Unit::TestCase
     assert_equal "greeting=", concordion_method_name("#result = greeting=(#TEXT)")
   end
   
+  def test_escapes_single_quotes
+    assert_equal "A\\\\'s", escape_single_quotes("A's")
+  end
+  
   def test_conc_method_name
     assert_equal "invoke", concordion_method_name("invoke()")
     assert_equal "invoke", concordion_method_name("invoke(")

@@ -72,4 +72,8 @@ module ConcordionStringUtility
     base.split("=")[1].strip
   end
   
+  def escape_single_quotes(s)
+    s.gsub(/[']/, '\\\\\\\\\'')
+  end
+
 end

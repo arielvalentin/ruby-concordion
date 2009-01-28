@@ -4,9 +4,17 @@ require 'concordion_test_case'
 class FailingTest < ConcordionTestCase
 
   def initialize(suite)
-    super(suite, {:expected_failure_count => 1})
+    super(suite, {:expected_failure_count => 3})
   end
 
+  #TODO method_missing? => return "wrong" :)
+  def wrong_value4
+    "wrong"
+  end
+  
+  def wrong_value2
+    "wrong"
+  end
   def wrong_value
     "wrong"
   end

@@ -158,5 +158,6 @@ ins {
 }</style></head>
     <body>
         <p concordion:assertequals="getGreeting()" class="concordion_failure">Hello World! expected but received Hello World?</p>
+        <p concordion:assertequals="no_such_method_in_fixture()" class="concordion_failure">Thats ok, look how nice the error is. expected but received [Missing method 'no_such_method_in_fixture' in fixture GoldmasterFailingTest ]</p>
     </body>
 </html>

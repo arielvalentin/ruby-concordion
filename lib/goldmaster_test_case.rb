@@ -22,9 +22,9 @@ class GoldmasterTestCase < ConcordionTestCase
 
       assert !@write_goldmaster, "Disable write to goldmaster"
     end
-
     unless is_trivial?
       goldmaster = ConcordionReader.new.read(snake_cased_goldmaster_name(self.class.to_s))
+      assert @writer.data.size > 0
       assert_equal @writer.data, goldmaster 
     end
 

@@ -10,7 +10,15 @@ class ConcordionInvoker
       sut_rv = @concordion.dereference(cpr.system_under_test)
     else 
       invocation_str = @builder.build_invocation_string(cpr.system_under_test, cpr.content)
-      sut_rv = test_context.instance_eval invocation_str
+      begin
+        sut_rv = test_context.instance_eval invocation_str
+      rescue NoMethodError => e
+        except_str = e.exception.to_s
+        method = except_str.split("`")[1].split("'")[0]
+        clazz = except_str.split("<")[1].split(":")[0]
+        sut_rv = "[Missing method '#{method}' in fixture #{clazz} ]"
+      end
+      
     end
     
     sut_rv

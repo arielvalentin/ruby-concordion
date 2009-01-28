@@ -1,4 +1,5 @@
 require 'concordion_css'
+require 'concordion_error_condition'
 
 class ConcordionCSSDecorator
   def add_concordion_css_link(root, html, type)
@@ -40,13 +41,18 @@ class ConcordionCSSDecorator
   end
   
   def decorate_tag(rv, tag) 
+    context = tag.to_html
+    expected = tag.inner_html
+    xpath = tag.xpath
+    
     if rv[:result]
       tag[:class] = 'concordion_success'
-      return 0
+      return nil
     end
 
     tag[:class] = 'concordion_failure'
     tag.inner_html += " expected but received #{rv[:actual]}"
-    1
+    
+    ConcordionErrorCondition.new(expected, rv[:actual], xpath, context)
   end
 end

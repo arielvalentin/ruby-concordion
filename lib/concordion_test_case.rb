@@ -75,22 +75,34 @@ class ConcordionTestCase < Test::Unit::TestCase
   end
 
   def run_spec(filename)
-    @failures = 0
+    @failures = []
     @parser.each_eligible_concordion_element do |elem|
-      @failures += @processor.process(elem, self)
+      failure = @processor.process(elem, self)
+      @failures << failure unless failure.nil?
     end    
   end   
 
   def report_spec(filename)
     @decorator.add_css_file_to_output_dir(@writer, @css_type)
     outfilename = @writer.calculate_filename_and_overwrite(@parser.root, filename)
-    assert_no_failures(@failures, outfilename)
+    assert_no_failures(outfilename)
   end
 
-  def assert_no_failures(failures, outfilename)
-    assert_equal @expected_failure_count, failures, "Wrote output to #{outfilename}"    
+  def assert_no_failures(outfilename)
+    message = build_message "#{show_failures}\nWrote output to #{outfilename}.", 'Actual failure count <?> did not match expected <?>.', @failures.size, @expected_failure_count
+    assert_block message do
+      @failures.size == @expected_failure_count
+    end
   end
 
+  def show_failures
+    rv = ""
+    @failures.each_with_index do |failure, index|
+      rv += "[Error:#{index + 1}] #{failure}\n"
+    end
+    rv
+  end
+  
   def assert_concordion_document
     assert_equal "http://www.concordion.org/2007/concordion", @parser.html.get_attribute("xmlns:concordion")
   end

@@ -8,7 +8,7 @@ class ConcordionParseResult
     @tag = tag
   end
   def to_s
-    "CPR: #{@concordion_command}, #{@system_under_test}, #{@content}"
+    "Concordion command[#{@concordion_command}], System under test method[#{@system_under_test}], Tag Content[#{@content}]"
   end
 
   def is_set_command?

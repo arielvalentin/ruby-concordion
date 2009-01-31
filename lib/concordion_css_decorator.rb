@@ -56,8 +56,9 @@ class ConcordionCSSDecorator
       #tag.inner_html += " expected but received #{rv[:actual]}"
       #puts (tag.methods - Object.methods).sort.join("\n")
       # value = 
-      if rv[:actual] > rv[:expected] 
-        tag.inner_html += "<tr><td>[Surplus Row Returned By Fixture]</td></tr>"
+      if rv[:actual] > rv[:expected]
+        diff = rv[:actual] - rv[:expected]
+        tag.inner_html += "<tr><td>[#{diff} Surplus Row(s) Returned By Fixture]</td></tr>"
       end
       
       

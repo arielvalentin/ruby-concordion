@@ -10,6 +10,15 @@ class GoldmasterFailingTest < GoldmasterTestCase
   def getGreeting
     "Hello World?"
   end
+
+  def get_3_plans
+    plans = []
+    plans << mock_plan_named("Cunning Plan A")
+    plans << mock_plan_named("Cunning Plan B")
+    plans << mock_plan_named("Cunning Plan C")
+    plans
+    
+  end
   
   def get_plans
     plans = []

@@ -14,17 +14,20 @@ class ConcordionInvoker
     rescue NoMethodError => e
       method = method_from_no_method_error(e)
 
-      
-      rv = "["
-      clazz = e.to_s.split(":")[1]
-      if clazz == 'NilClass'
-        rv += "No more rows"
-      else
-        rv += " on #{clazz} but was not found"
-      end
-      rv += "]"
+      rv = dereference_error_message(e)
     end
     rv
+  end
+  
+  def dereference_error_message(e)
+    rv = "["
+    clazz = e.to_s.split(":")[1]
+    if clazz == 'NilClass'
+      rv += "No more rows"
+    else
+      rv += " on #{clazz} but was not found"
+    end
+    rv += "]"
   end
   
   def invoke_sut(cpr, test_context)

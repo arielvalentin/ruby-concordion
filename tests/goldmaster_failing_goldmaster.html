@@ -177,14 +177,14 @@ ins {
             <td concordion:assertequals="#plan.planName" class="concordion_failure">Cunning Plan 2 expected but received Cunning Plan 3</td>
           </tr>
         </table>
-        <table class="concordion_failure" concordion:verifyrows="#plans = get_plans()">
+        <table class="concordion_failure" concordion:verifyrows="#plans = get_3_plans()">
           <tr>
             <th concordion:assertequals="#plan.planName">Plan Name</th>
           </tr>
           <tr>
-            <td concordion:assertequals="#plan.planName">Cunning Plan 2</td>
+            <td concordion:assertequals="#plan.planName">Cunning Plan A</td>
           </tr>
-        <tr><td concordion:assertequals="#plan.planName">[Surplus Row Returned By Fixture]</td></tr></table>
+        <tr><td concordion:assertequals="#plan.planName">[2 Surplus Row(s) Returned By Fixture]</td></tr></table>
         <table class="concordion_failure" concordion:verifyrows="#plans = get_plans()">
           <tr>
             <th concordion:assertequals="#plan.planName">Plan Name</th>

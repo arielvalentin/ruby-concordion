@@ -68,18 +68,25 @@ p.success {
   padding: 2px;
 }
 .concordion_success, .concordion_success * {
-  background-color: #afa !important;
+  background-color: #afa;
 }
 .success pre {
   background-color: #bbffbb;
 }
 .concordion_failure, .concordion_failure * {
-  background-color: #ffb0b0 !important;
+  background-color: #ffb0b0;
   padding: 1px;
 }
 .concordion_failure .expected {
   text-decoration: line-through;
   color: #bb5050;
+}
+
+td.concordion_failure {
+  background-color: #ffb0b0 !important;
+}
+td.concordion_success {
+  background-color: #afa !important;
 }
 
 ins {

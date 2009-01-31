@@ -58,14 +58,6 @@ class ConcordionCSSDecorator
       # value = 
       if rv[:actual] > rv[:expected] 
         tag.inner_html += "<tr><td>[Surplus Row Returned]</td></tr>"
-      else
-        diff = rv[:expected] - rv[:actual]
-        trs = tag.search("tr").slice(-diff, diff)
-        puts "trs.size: #{trs.size}"
-        #trs.each {|tr_tag| tr_tag[:class] = 'concordion_failure'}
-        puts trs[0].inner_html
-        #puts "#{tag.inner_html}"
-        puts "What to do.."
       end
       
       

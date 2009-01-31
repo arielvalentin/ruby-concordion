@@ -5,7 +5,7 @@ require 'mocha'
 
 class GoldmasterFailingTest < GoldmasterTestCase  
   def initialize(suite)
-    super(suite, {:expected_failure_count => 7}) # get greeting is wrong, both plan titles are wrong, and a method is missing
+    super(suite, {:expected_failure_count => 9}) 
   end
   def getGreeting
     "Hello World?"

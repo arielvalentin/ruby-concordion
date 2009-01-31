@@ -15,10 +15,10 @@ class ConcordionInvoker
       method = method_from_no_method_error(e)
 
       
-      rv = "[#{method} called"
+      rv = "["
       clazz = e.to_s.split(":")[1]
       if clazz == 'NilClass'
-        rv += " but there was no testable entity to receive it"
+        rv += "No more rows"
       else
         rv += " on #{clazz} but was not found"
       end

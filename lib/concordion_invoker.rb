@@ -94,8 +94,7 @@ class ConcordionInvoker
     cmds = {}
     cmds["assertequals"] = Proc.new { |a, b| { :result => a == b, :actual => a, :expected => b } }
     cmds["execute"] = Proc.new { |a,b| {:result => true, :actual => a, :expected => b } }
-    cmds["verifyrows"] = Proc.new { |a,b| 
-      { :result => a.size == b, :actual => a.size, :expected => b } }
+    cmds["verifyrows"] = Proc.new { |a,b| { :result => a.size == b, :actual => a.size, :expected => b } }
     cmds["asserttrue"] = Proc.new { |a, b| { :result => a, :actual => a,  :expected => true } }
     cmds["assert_image"] = Proc.new { |actual_data, expected_image_url| 
       expected_data = File.read(path_for(expected_image_url))

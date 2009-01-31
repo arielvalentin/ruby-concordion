@@ -1,4 +1,6 @@
 
+require 'concordion_test_case'
+require 'user'
 class VerifyRowsScsrTest < ConcordionTestCase 
   def setup
     @users = []

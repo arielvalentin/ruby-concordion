@@ -57,7 +57,7 @@ class ConcordionCSSDecorator
       #puts (tag.methods - Object.methods).sort.join("\n")
       # value = 
       if rv[:actual] > rv[:expected] 
-        tag.inner_html += "<tr><td>[Surplus Row Returned]</td></tr>"
+        tag.inner_html += "<tr><td>[Surplus Row Returned By Fixture]</td></tr>"
       end
       
       

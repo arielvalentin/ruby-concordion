@@ -1,0 +1,12 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+    <body>
+        <table concordion:verifyRows="#plans = get_plans()">
+          <tr>
+            <th concordion:assertEquals="#plan.planName">Plan Name</th>
+          </tr>
+          <tr>
+            <td>Cunning Plan BUG</td>
+          </tr>
+        </table>
+    </body>
+</html>

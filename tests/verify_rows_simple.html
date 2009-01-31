@@ -1,0 +1,14 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+  <body>
+
+    <table concordion:verifyRows="#users = getSearchResultsFor(#searchString)">
+        <tr>
+	  <th concordion:assertEquals="#user.foo">and their Other field</th>
+	</tr>
+        <tr>
+	  <td>bar</td>
+	</tr>
+    </table>
+  </body>
+</html>
+ 

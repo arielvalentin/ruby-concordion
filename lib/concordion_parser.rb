@@ -32,7 +32,7 @@ class ConcordionParser
 
   def each_eligible_concordion_element(&block)
     each_concordion_element do |elem|
-      if concordion_cmd_attr_exists?(elem)        
+      if concordion_cmd_attr_exists?(elem)       
         attr = concordion_cmd_attr_for(elem)
         @verifier.update_row(elem)
         if !@instrumenter.instrument_from_headers(elem, attr, @root)

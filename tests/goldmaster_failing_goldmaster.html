@@ -65,7 +65,7 @@ p.success {
   background-color: #bbffbb;
 }
 .concordion_failure, .concordion_failure * {
-  background-color: #ffb0b0;
+  background-color: #ffb0b0 !important;
   padding: 1px;
 }
 .concordion_failure .expected {
@@ -159,5 +159,38 @@ ins {
     <body>
         <p concordion:assertequals="getGreeting()" class="concordion_failure">Hello World! expected but received Hello World?</p>
         <p concordion:assertequals="no_such_method_in_fixture()" class="concordion_failure">Thats ok, look how nice the error is. expected but received [Missing method 'no_such_method_in_fixture' in fixture GoldmasterFailingTest ]</p>
+        <table class="concordion_success" concordion:verifyrows="#plans = get_plans()">
+          <tr>
+            <th concordion:assertequals="#plan.planName">Plan Name</th>
+          </tr>
+          <tr>
+            <td concordion:assertequals="#plan.planName" class="concordion_failure">Cunning Plan 1 expected but received Cunning Plan 2</td>
+          </tr>
+          <tr>
+            <td concordion:assertequals="#plan.planName" class="concordion_failure">Cunning Plan 2 expected but received Cunning Plan 3</td>
+          </tr>
+        </table>
+        <table class="concordion_failure" concordion:verifyrows="#plans = get_plans()">
+          <tr>
+            <th concordion:assertequals="#plan.planName">Plan Name</th>
+          </tr>
+          <tr>
+            <td concordion:assertequals="#plan.planName">Cunning Plan 2</td>
+          </tr>
+        <tr><td concordion:assertequals="#plan.planName">[Surplus Row Returned]</td></tr></table>
+        <table class="concordion_failure" concordion:verifyrows="#plans = get_plans()">
+          <tr>
+            <th concordion:assertequals="#plan.planName">Plan Name</th>
+          </tr>
+          <tr>
+            <td concordion:assertequals="#plan.planName" class="concordion_success">Cunning Plan 2</td>
+          </tr>
+          <tr>
+            <td concordion:assertequals="#plan.planName" class="concordion_success">Cunning Plan 3</td>
+          </tr>
+          <tr>
+            <td concordion:assertequals="#plan.planName" class="concordion_failure">Cunning Plan 4 expected but received [planName called but there was no testable entity to receive it]</td>
+          </tr>
+        </table>
     </body>
 </html>

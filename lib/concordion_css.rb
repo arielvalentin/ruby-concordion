@@ -74,7 +74,7 @@ p.success {
   background-color: #bbffbb;
 }
 .concordion_failure, .concordion_failure * {
-  background-color: #ffb0b0;
+  background-color: #ffb0b0 !important;
   padding: 1px;
 }
 .concordion_failure .expected {

@@ -11,8 +11,9 @@ class ConcordionProcessor
   def process(tag, test_context)
     attr = concordion_cmd_attr_for(tag)
     instrumented_value = tag.get_attribute(attr)
-    rv = @concordion.evaluate(create_parse_result(tag, attr, instrumented_value), test_context, self)
-    @decorator.decorate_tag(rv, tag)
+    cpr = create_parse_result(tag, attr, instrumented_value)
+    rv = @concordion.evaluate(cpr, test_context, self)
+    @decorator.decorate_tag(rv, tag, cpr)
   end
 
   def create_parse_result(tag, attr, value)

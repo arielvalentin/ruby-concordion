@@ -40,7 +40,7 @@ class ConcordionCSSDecorator
     end
   end
   
-  def decorate_tag(rv, tag) 
+  def decorate_tag(rv, tag, cpr) 
     context = tag.to_html
     expected = tag.inner_html
     xpath = tag.xpath
@@ -51,7 +51,27 @@ class ConcordionCSSDecorator
     end
 
     tag[:class] = 'concordion_failure'
-    tag.inner_html += " expected but received #{rv[:actual]}"
+    if cpr.is_verify_command?
+      
+      #tag.inner_html += " expected but received #{rv[:actual]}"
+      #puts (tag.methods - Object.methods).sort.join("\n")
+      # value = 
+      if rv[:actual] > rv[:expected] 
+        tag.inner_html += "<tr><td>[Surplus Row Returned]</td></tr>"
+      else
+        diff = rv[:expected] - rv[:actual]
+        trs = tag.search("tr").slice(-diff, diff)
+        puts "trs.size: #{trs.size}"
+        #trs.each {|tr_tag| tr_tag[:class] = 'concordion_failure'}
+        puts trs[0].inner_html
+        #puts "#{tag.inner_html}"
+        puts "What to do.."
+      end
+      
+      
+    else
+      tag.inner_html += " expected but received #{rv[:actual]}"
+    end
     
     ConcordionErrorCondition.new(expected, rv[:actual], xpath, context)
   end

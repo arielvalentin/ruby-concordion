@@ -17,7 +17,7 @@ end
 task :default => [:clean, :test] 
 
 PKG_FILES = FileList['**/*'].exclude(/_test_output\.html$/)
-PKG_VERSION = '0.8.7'                     
+PKG_VERSION = '0.8.8'                     
 
 spec = Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY

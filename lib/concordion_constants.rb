@@ -1,7 +1,7 @@
 module ConcordionConstants
 
   def concordion_command_attributes
-    ["assertequals", "set", "execute", "verifyrows", "asserttrue"].collect do
+    ["assertequals", "set", "execute", "verifyrows", "asserttrue", "assert_image"].collect do
         |cmd| "concordion:#{cmd}"
     end
   end

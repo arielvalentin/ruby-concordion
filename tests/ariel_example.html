@@ -1,0 +1,13 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+   <body>
+       <p>Given an <span concordion:execute="#author = setup_user (#TEXT)">author</span> 
+       who has an 
+       <span concordion:execute="#entity = setup_entity(#author,#TEXT)">entity</span> 
+       with no versions,
+       </p>
+       <p concordion:execute="delete_users_entity(#author,#entity)"
+>When the author deletes the entity,</p>
+       <p concordion:assertTrue="is_deleted?(#entity)">Then entity is
+deleted from the system.</p>
+   </body>
+</html>

@@ -1,5 +1,4 @@
 require 'concordion_utility'
-require 'concordion_invocation_string_builder'
 require 'concordion_lookahead_handler'
 require 'concordion_verifier'
 require 'concordion_invoker'
@@ -12,11 +11,10 @@ class Concordion
   def self.TEXT_VAR
     @@TEXT_VAR
   end
-  attr_reader :verification_variable, :verifier, :invocation_builder
+  attr_reader :verification_variable, :verifier
 
   def initialize
     @memory = {}
-    @invocation_builder = ConcordionInvocationStringBuilder.new(self)
     @lookahead_handler = ConcordionLookaheadHandler.new
     @verifier = ConcordionVerifier.new(self)
     @invoker = ConcordionInvoker.new(self)
@@ -31,9 +29,6 @@ class Concordion
     @memory[variable]
   end
   
-  def build_invocation_string(conc_call, content)
-    @invocation_builder.build_invocation_string(conc_call,content)
-  end
 
   def dereference(conc_call)
     var_name = concordion_variable_name(conc_call)
@@ -60,7 +55,5 @@ class Concordion
     
     conc_rv
   end
-
-
 
 end

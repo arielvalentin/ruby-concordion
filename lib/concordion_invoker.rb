@@ -1,10 +1,12 @@
 require 'loader_helper'
+require 'concordion_utility'
 
 class ConcordionInvoker
   include LoaderHelper
+  include ConcordionUtility
+  
   def initialize(conc)
     @concordion = conc
-    @builder = conc.invocation_builder
   end
 
   def try_to_dereference(cpr)
@@ -30,40 +32,48 @@ class ConcordionInvoker
     rv += "]"
   end
   
+  
   def invoke_sut(cpr, test_context)
     sut_rv = nil
     if cpr.needs_dereference?
       sut_rv = try_to_dereference(cpr)
     else 
-      invocation_str = try_to_build_invocation_str(cpr)
-      if invocation_str.nil?
-        sut_rv = "[Parse failed for: #{cpr}]"
-      else
-        sut_rv = try_to_invoke_sut(invocation_str, test_context)
-      end        
+
+      sut_rv = try_to_invoke_sut(cpr,test_context)
     end
     
     sut_rv
   end
   
-  def try_to_build_invocation_str(cpr)
-    str = nil
-    begin
-      str = @builder.build_invocation_string(cpr.system_under_test, cpr.content)
-    rescue Exception => e
-      @last_error = e
-    end
-    str
-  end
   
-  def try_to_invoke_sut(invocation_str, test_context)
+  def try_to_invoke_sut(cpr, test_context)
     sut_rv = nil
     begin
-      sut_rv = test_context.instance_eval invocation_str
+      
+        conc_method = concordion_method_name(cpr.system_under_test)
+        arg_values = []
+        if has_arguments?(cpr.system_under_test)
+          arg_vars = concordion_arguments(cpr.system_under_test)
+          arg_values = arg_vars.collect {|var| 
+             if var == '#TEXT'
+              escape_single_quotes(cpr.content)
+            else
+              @concordion.get_variable(var) 
+            end
+          }
+        end
+    
+        args = arg_values.join(",")
+       sut_rv = test_context.send(conc_method, *arg_values)  
     rescue NoMethodError => e
-      method = method_from_no_method_error(e)
-      clazz = class_from_no_method_error(e)
-      sut_rv = "[Missing method '#{method}' in fixture #{clazz} ]"
+      
+      if e.to_s =~ /nil:NilClass/
+        sut_rv = "[Parse failed for: #{cpr}]"
+      else
+        method = method_from_no_method_error(e)
+        clazz = class_from_no_method_error(e)
+        sut_rv = "[Missing method '#{method}' in fixture #{clazz} ]"
+      end
     end
     sut_rv
   end

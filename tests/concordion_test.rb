@@ -15,20 +15,6 @@ class ConcordionTest < Test::Unit::TestCase
     assert_equal "bar", @concordion.get_variable("#foo")
   end
 
-  def test_build_invocation_string
-    assert_equal "self.send('foo')", @concordion.build_invocation_string("foo()", "content")
-    @concordion.set_variable("#bar", "baz")
-    assert_equal "self.send('foo', 'baz')", @concordion.build_invocation_string("foo(#bar)", "content")
-
-    @concordion.set_variable("#purplemonkey", "dishwasher")
-    assert_equal "self.send('other', 'baz', 'dishwasher')", @concordion.build_invocation_string("other(#bar,  #purplemonkey)", "content")
-  end
-
-  def test_build_invocation_string_replaces_text
-    assert_equal "self.send('foo', 'ASDF')", @concordion.build_invocation_string("foo(#TEXT)", "ASDF")
-    
-  end
-
   def test_dereference
     @concordion.set_variable("#result", @thingy)
 

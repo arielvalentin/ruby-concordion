@@ -34,9 +34,17 @@ module ConcordionStringUtility
   include PluralToSingularUtility
   
   def has_arguments?(name)
-    name !~ /\(\)$/
+    !(ends_in_empty_parens?(name) || is_direct_method_call?(name))
   end
 
+  def is_direct_method_call?(name)
+    name =~ /^[\w]+$/
+  end
+  
+  def ends_in_empty_parens?(name)
+    name =~ /\(\)$/
+  end
+  
   def concordion_assignment(name)
     name.split("=")[0].strip
   end
@@ -53,7 +61,17 @@ module ConcordionStringUtility
     if name =~ /\(/
       base = name.split("(")[0].strip
     else
+      
+      
       base = name.strip
+      if base =~ /\s/
+        
+        if base =~ /=/ && base =~ /^#/
+          base = base.split("=")[1].strip
+        end
+        elements = base.split(/\s/)
+        base = elements[0]
+      end
     end
     
     if !has_assignment?(base)

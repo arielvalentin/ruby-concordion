@@ -1,0 +1,15 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+    <body>
+        <p concordion:assertEquals="no_args">foo</p>
+        <p concordion:assertEquals="return_arg #TEXT">foo</p>
+        <p concordion:set="#bar">bar</p>
+        <p concordion:set="#baz">baz</p>
+        <p concordion:assertEquals="concat #bar, #baz">bar:baz</p>
+        <p concordion:execute="#result = concat #TEXT, #TEXT">AA</p>
+        <p concordion:assertEquals="#result">AA:AA</p>
+        <p concordion:execute="#result = concat #baz, #TEXT">zab</p>
+        <p concordion:assertEquals="#result">baz:zab</p>
+        <p concordion:execute="#result = concat #TEXT, #bar">fed</p>
+        <p concordion:assertEquals="#result">fed:bar</p>
+    </body>
+</html>

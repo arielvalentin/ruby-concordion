@@ -2,5 +2,13 @@
     <body>
         <p concordion:execute="set_name(#TEXT)">No</p>
 	<p concordion:assertEquals="double_down()">NoNo</p>
+        
+	<p concordion:execute="#result = return_arg(#TEXT)">Working Text</p>
+	<p concordion:assertEquals="#result">Working Text</p>
+        
+	<p concordion:execute="#result = concat(#TEXT,#TEXT)">Working Text 2</p>
+	<p concordion:assertEquals="#result">Working Text 2:Working Text 2</p>
+        
+        
     </body>
 </html>

@@ -41,6 +41,14 @@ class ConcordionUtilityTest < Test::Unit::TestCase
     assert_equal "A\\\\'s", escape_single_quotes("A's")
   end
   
+  def test_conc_method_name_no_parens
+    assert_equal "invoke", concordion_method_name("invoke")
+    assert_equal "invoke", concordion_method_name("invoke #foo")
+
+    assert_equal "foo", concordion_method_name("#baz = foo #asdf, #fdsa")
+    assert_equal "greeting=", concordion_method_name("greeting= #TEXT")
+  end
+  
   def test_conc_method_name
     assert_equal "invoke", concordion_method_name("invoke()")
     assert_equal "invoke", concordion_method_name("invoke(")
@@ -51,23 +59,51 @@ class ConcordionUtilityTest < Test::Unit::TestCase
     assert_equal "greeting=", concordion_method_name("greeting=(#TEXT)")
   end
 
+  def test_conc_var_name_no_parens
+    assert_equal "#result", concordion_variable_name("#result.first")
+  end
   def test_conc_var_name
     assert_equal "#result", concordion_variable_name("#result.first()")
     assert_equal "#res", concordion_variable_name(" #res  ")
 
   end
 
+  def test_is_direct_method_call
+    assert is_direct_method_call?("invoke")
+    assert !is_direct_method_call?("invoke(#foo,#bar)")
+    
+  end
+  def test_has_args_no_parens
+    assert !has_arguments?("invoke")
+    assert has_arguments?("invoke #foo")
+    assert has_arguments?("invoke #foo, #bar")
+    
+  end
+  
   def test_has_args
     assert has_arguments?("invoke(#foo,#bar)")
+    assert has_arguments?("invoke(#foo)")
     assert !has_arguments?("invoke()")
   end
 
+  def test_conc_args_no_parens
+    assert_equal [], concordion_arguments("invoke")
+    assert_equal ["#foo","#bar"],  concordion_arguments("bleh #foo,#bar")
+    assert_equal ["#foo","#bar"], concordion_arguments("bleh  #foo    ,    #bar  ")
+    assert_equal ["#foo","#bar"], concordion_arguments("#asdf = bleh   #foo    ,    #bar  ")
+    
+  end
   def test_conc_args
     assert_equal [], concordion_arguments("invoke()")
     assert_equal ["#foo","#bar"],  concordion_arguments("bleh(#foo,#bar)")
     assert_equal ["#foo","#bar"], concordion_arguments("bleh ( #foo    ,    #bar  )")
+    assert_equal ["#foo","#bar"], concordion_arguments("#asdf = bleh ( #foo    ,    #bar  )")
   end
 
+  def test_conc_assignment_no_parens
+    assert_equal "#foo", concordion_assignment("  #foo = getResult ")
+  end
+  
   def test_conc_assignment
     assert_equal "#foo", concordion_assignment("  #foo = getResult() ")
     assert_equal "#for", concordion_assignment("#for=")

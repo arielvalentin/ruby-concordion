@@ -25,9 +25,21 @@ module ConcordionUtility
 
   def concordion_arguments(name)
     return [] unless has_arguments?(name)
-    name_no_end_paren = name.gsub(")", '')
-    arg_string = name_no_end_paren.split("(")[1]
-
+    arg_string = nil
+    if name =~ /\(/
+      name_no_end_paren = name.gsub(")", '')
+      arg_string = name_no_end_paren.split("(")[1]
+    else
+      
+      base = name.strip
+      if base =~ /=/
+        arg_string = nil
+        base = base.split("=")[1].strip
+      end
+      tokens = base.split(" ").compact
+      arg_string = tokens.slice(1, tokens.size - 1).join(" ")
+    end
+    
     arg_string.split(",").collect { |arg| arg.strip }
   end
   def concordion_variable_name(conc_call)

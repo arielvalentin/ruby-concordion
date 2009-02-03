@@ -62,13 +62,12 @@ class ConcordionInvoker
             end
           }
         end
-    
         args = arg_values.join(",")
        sut_rv = test_context.send(conc_method, *arg_values)  
     rescue NoMethodError => e
       
       if e.to_s =~ /nil:NilClass/
-        sut_rv = "[Parse failed for: #{cpr}]"
+        sut_rv = "[Parse failed for: #{cpr}, cause: (#{e})]"
       else
         method = method_from_no_method_error(e)
         clazz = class_from_no_method_error(e)

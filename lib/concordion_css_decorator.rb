@@ -52,20 +52,18 @@ class ConcordionCSSDecorator
 
     tag[:class] = 'concordion_failure'
     if cpr.is_verify_command?
-      
-      #tag.inner_html += " expected but received #{rv[:actual]}"
-      #puts (tag.methods - Object.methods).sort.join("\n")
-      # value = 
       if rv[:actual] > rv[:expected]
         diff = rv[:actual] - rv[:expected]
         tag.inner_html += "<tr><td>[#{diff} Surplus Row(s) Returned By Fixture]</td></tr>"
       end
-      
-      
     else
-      tag.inner_html += " expected but received #{rv[:actual]}"
+      if cpr.is_assert_true_command?
+        tag.inner_html += ": expected true but received #{rv[:actual]}"
+      else
+        tag.inner_html += " expected but received #{rv[:actual]}"
+      end
     end
-    
-    ConcordionErrorCondition.new(expected, rv[:actual], xpath, context)
+    #TODO refactor: move some of this logic into the conc parse result?
+    ConcordionErrorCondition.new(expected, rv[:actual], xpath, context, cpr.is_assert_true_command?)
   end
 end

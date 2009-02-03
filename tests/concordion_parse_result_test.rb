@@ -23,6 +23,10 @@ class ConcordionParseResultTest < Test::Unit::TestCase
     assert ConcordionParseResult.new("verifyrows",nil,nil,nil).is_verify_command?
     assert !ConcordionParseResult.new("monkeys",nil,nil,nil).is_verify_command?
   end
+  def test_is_asserttrue_command
+    assert ConcordionParseResult.new("asserttrue",nil,nil,nil).is_assert_true_command?
+    assert !ConcordionParseResult.new("monkeys",nil,nil,nil).is_assert_true_command?
+  end
 
   def test_image_location
     tag = mock("tag")

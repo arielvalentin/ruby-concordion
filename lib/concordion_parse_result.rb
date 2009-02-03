@@ -26,6 +26,9 @@ class ConcordionParseResult
   def is_execute_command?
     "execute" == @concordion_command
   end
+  def is_assert_true_command?
+    "asserttrue" == @concordion_command
+  end
 
   def num_results_expected
     @tag.search("tr").size - 1

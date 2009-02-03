@@ -105,7 +105,9 @@ class ConcordionInvoker
 
   def commands
     cmds = {}
-    cmds["assertequals"] = Proc.new { |a, b| { :result => a == b, :actual => a, :expected => b } }
+    cmds["assertequals"] = Proc.new { |a, b| 
+      result = (a.to_s == b)
+      { :result => result, :actual => a, :expected => b } }
     cmds["execute"] = Proc.new { |a,b| 
       result = true
       result = false if a.to_s =~ /Missing method/

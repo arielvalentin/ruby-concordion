@@ -10,24 +10,31 @@ require 'concordion'
 require 'concordion_css_decorator'
 require 'test/unit'
 
+
+
+
 class ConcordionTestCase < Test::Unit::TestCase
 
   @@EXPECTED_FAILURE_COUNT = 0
 
   include ConcordionUtility
 
+  class << self
+    alias_method :original_inherited, :inherited
+  end
+  
   def self.inherited(subclass)
+    original_inherited(subclass)
     subclass.class_eval do
       define_method :test_spec do
         filename = snake_cased_test_name(subclass.to_s)
         parse_spec(filename)
         run_spec(filename)
         report_spec(filename)
-      end
+    end
     end
     subclass
   end
-
   def self.default_config
     concordion = Concordion.new
     parser = ConcordionParser.new(ConcordionReader.new, concordion)

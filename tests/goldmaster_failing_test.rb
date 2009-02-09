@@ -4,9 +4,10 @@ require 'goldmaster_test_case'
 require 'mocha'
 
 class GoldmasterFailingTest < GoldmasterTestCase  
-  def initialize(suite)
-    super(suite, {:expected_failure_count => 9}) 
+  def expected_failure_count
+    9
   end
+  
   def getGreeting
     "Hello World?"
   end

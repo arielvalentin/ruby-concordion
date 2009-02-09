@@ -4,8 +4,8 @@ require 'goldmaster_test_case'
 require 'mocha'
 
 class GoldmasterTableBugTest < GoldmasterTestCase  
-  def initialize(suite)
-    super(suite, {:expected_failure_count => 1}) 
+  def expected_failure_count
+    1
   end
   
   def get_plans

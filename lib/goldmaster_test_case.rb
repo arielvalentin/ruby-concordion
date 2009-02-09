@@ -9,22 +9,26 @@ class GoldmasterTestCase < ConcordionTestCase
   def initialize(suite, conf = {})
     @writer = ConcordionStringWriter.new
 
-    config = ConcordionTestCase.default_config.merge({:writer => @writer}).merge(conf)
+    config = ConcordionTestCase.default_config.merge(conf)
     @write_goldmaster = config[:write_goldmaster]    
     super(suite, config)
   end
 
+  def rcor_writer
+    @writer
+  end
   def test_spec
     trivial
   end
 
 
   def teardown
-    if @write_goldmaster
+    if self.class.method_defined?(:write_goldmaster!)
       ConcordionWriter.new.write(@writer.data, snake_cased_goldmaster_name(self.class.to_s))
 
-      assert !@write_goldmaster, "Disable write to goldmaster"
+      assert false, "Disable write to goldmaster (erase write_goldmaster! in #{self.class})"
     end
+    
     unless is_trivial?
       goldmaster = ConcordionReader.new.read(snake_cased_goldmaster_name(self.class.to_s))
       assert @writer.data.size > 0

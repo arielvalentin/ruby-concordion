@@ -10,7 +10,8 @@ CLEAN.include(ConcordionEnvironment.clean_list)
 Rake::TestTask.new do |t|
   t.libs << "test-lib"
   t.libs << "tests"
-  t.test_files = FileList['tests/*_test.rb']
+  t.libs << "tests/goldmasters"
+  t.test_files = FileList['tests/**/*_test.rb']
   t.verbose = true
 end
 

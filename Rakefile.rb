@@ -11,6 +11,8 @@ Rake::TestTask.new do |t|
   t.libs << "test-lib"
   t.libs << "tests"
   t.libs << "tests/goldmasters"
+  t.libs << "tests/tables"
+  t.libs << "tests/user-reported"
   t.test_files = FileList['tests/**/*_test.rb']
   t.verbose = true
 end

@@ -29,13 +29,13 @@ task :default => [:clean, :clobber_rdoc, :rdoc, :test]
 task :commit_prep => [:test, :clean, :clobber_rdoc]
 
 PKG_FILES = FileList['**/*'].exclude(/_test_output\.html$/)
-PKG_VERSION = '0.9.7'
+PKG_VERSION = '0.9.8'
 
 spec = Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.summary = "Ruby Concordion"
-  s.name = 'rcor'
-  s.rubyforge_project = 'rcor'
+  s.name = 'concordion'
+  s.rubyforge_project = 'ruby-concordion'
   #TODO fix the above when the new rubyforge project is available
   s.version = PKG_VERSION
   s.author = 'Ben Goodspeed'

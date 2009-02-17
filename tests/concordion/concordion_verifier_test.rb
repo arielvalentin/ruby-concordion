@@ -5,7 +5,7 @@ require 'concordion_verifier'
 class ConcordionVerifierTest < Test::Unit::TestCase
 
   def setup
-    @concordion = Concordion.new
+    @concordion = ConcordionState.new
     @verifier = ConcordionVerifier.new(@concordion)
   end
 

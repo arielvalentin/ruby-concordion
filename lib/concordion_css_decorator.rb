@@ -2,6 +2,8 @@ require 'concordion_css'
 require 'concordion_error_condition'
 
 class ConcordionCSSDecorator
+  
+
   def add_concordion_css_link(root, html, type)
     if html.at("head").nil?
       root.search("html").prepend('<head></head>')

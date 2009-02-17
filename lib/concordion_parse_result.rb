@@ -47,18 +47,26 @@ class ConcordionParseResult
     @system_under_test =~ /^#/ && @system_under_test.index("=").nil?
   end
 
-  def attribute_error(actual, expected)
-      if is_verify_command?
-        if actual > expected
+  def verify_error(actual, expected)
+      if actual > expected
         diff = actual - expected
         @tag.inner_html += "<tr><td>[#{diff} Surplus Row(s) Returned By Fixture]</td></tr>"
       end
+  end
+
+  def assertion_error(actual)
+    if is_assert_true_command?
+      @tag.inner_html += ": expected true but received #{actual}"
     else
-      if is_assert_true_command?
-        @tag.inner_html += ": expected true but received #{actual}"
-      else
-        @tag.inner_html += " expected but received #{actual}"
-      end
+      @tag.inner_html += " expected but received #{actual}"
+    end
+  end
+
+  def attribute_error(actual, expected)
+    if is_verify_command?
+        verify_error(actual, expected)
+    else
+        assertion_error(actual)
     end
   end
 end

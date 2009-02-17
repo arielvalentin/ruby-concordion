@@ -17,7 +17,7 @@ module ConcordionConfigMethods
   
 
   def default_config
-    concordion = Concordion.new
+    concordion = ConcordionState.new
     parser = ConcordionParser.new(ConcordionReader.new, concordion)
     decorator = ConcordionCSSDecorator.new
     processor = ConcordionProcessor.new(concordion, decorator)

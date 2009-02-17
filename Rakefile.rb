@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'rake/rdoctask'
 require 'rake/testtask'
 require 'rake/packagetask'
 require 'rake/gempackagetask'
@@ -6,6 +7,12 @@ require 'rake/clean'
 require 'lib/concordion_environment'
 
 CLEAN.include(ConcordionEnvironment.clean_list)
+
+
+Rake::RDocTask.new do |rd|
+  rd.main = "README"
+  rd.rdoc_files.include("README", "lib/**/*.rb")
+end
 
 Rake::TestTask.new do |t|
   t.libs << "test-lib"
@@ -17,26 +24,41 @@ Rake::TestTask.new do |t|
   t.verbose = true
 end
 
-task :default => [:clean, :test] 
+task :default => [:clean, :clobber_rdoc, :rdoc, :test]
+
+task :commit_prep => [:test, :clean, :clobber_rdoc]
 
 PKG_FILES = FileList['**/*'].exclude(/_test_output\.html$/)
-PKG_VERSION = '0.9.5'
+PKG_VERSION = '0.9.6'
 
 spec = Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
-  s.summary = "Ruby based concordion"
+  s.summary = "Ruby Concordion"
   s.name = 'rcor'
+  s.rubyforge_project = 'rcor'
+  #TODO fix the above when the new rubyforge project is available
   s.version = PKG_VERSION
   s.author = 'Ben Goodspeed'
-  s.email = 'b.goodspeed@gmail.com'
+  s.email = 'ben@goodspeed-it.ca'
+  s.homepage ="http://code.google.com/p/rcor/"
   s.add_dependency('hpricot', '>= 0.6')
   s.requirements << 'hpricot HTML parser'
   s.require_path = 'lib'
-  s.autorequire = 'rake'
+  s.has_rdoc = true
+  s.rdoc_options << '--title' << 'Ruby Concordion' << '--main' << 'README' << '--line-numbers'
   s.files = PKG_FILES
 end
 
-Rake::GemPackageTask.new(spec) { |pkg|
-  pkg.need_zip = true
-  pkg.need_tar = true
+Rake::GemPackageTask.new(spec) { |package|
+  package.need_zip = true
+  package.need_tar = true
 }
+
+
+require 'rcov/rcovtask'
+Rcov::RcovTask.new do |t|
+    t.libs << "test"
+    t.test_files = FileList['test/**/*_test.rb']
+    t.verbose = true
+  end
+

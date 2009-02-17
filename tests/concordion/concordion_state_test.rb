@@ -1,11 +1,11 @@
 require 'test/unit'
 require 'test_helper'
-require 'concordion'
+require 'concordion_state'
 
-class ConcordionTest < Test::Unit::TestCase
+class ConcordionStateTest < Test::Unit::TestCase
 
   def setup
-    @concordion = Concordion.new
+    @concordion = ConcordionState.new
     @thingy = Thingy.new()
   end
 

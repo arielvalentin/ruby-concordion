@@ -6,7 +6,7 @@ require 'concordion_parse_result'
 require 'concordion_test_case'
 require 'concordion_writer'
 require 'concordion_environment'
-require 'concordion'
+require 'concordion_state'
 require 'concordion_css_decorator'
 require 'test/unit'
 

@@ -15,7 +15,6 @@ class ConcordionEnvironment
     [with_dir("*_test_output.html"), with_dir("concordion.css")] #TODO is this safe to delete? what if the user overwrites this file?
   end
 
-  #TODO dry this up
   def self.css_type
     type = ENV[css_type_key] 
     type.nil? ? :inline : type.to_sym

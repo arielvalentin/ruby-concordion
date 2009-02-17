@@ -7,7 +7,6 @@ class FailingTest < ConcordionTestCase
     3
   end
 
-  #TODO method_missing? => return "wrong" :)
   def wrong_value4
     "wrong"
   end

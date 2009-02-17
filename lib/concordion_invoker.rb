@@ -44,37 +44,49 @@ class ConcordionInvoker
     
     sut_rv
   end
-  
-  
+
+  def handle_args(cpr)
+      arg_vars = concordion_arguments(cpr.system_under_test)
+      arg_values = arg_vars.collect {|var|
+         if var == '#TEXT'
+            cpr.content
+         else
+             @concordion.get_variable(var)
+         end
+      }
+
+      arg_values
+  end
+
+  def arg_values_for(cpr)
+      arg_values = []
+      if has_arguments?(cpr.system_under_test)
+        arg_values = handle_args(cpr)
+      end
+      arg_values
+  end
+
   def try_to_invoke_sut(cpr, test_context)
     sut_rv = nil
     begin
-        #TODO refactor, inlined/amended from former string builder
         conc_method = concordion_method_name(cpr.system_under_test)
-        arg_values = []
-        if has_arguments?(cpr.system_under_test)
-          arg_vars = concordion_arguments(cpr.system_under_test)
-          arg_values = arg_vars.collect {|var| 
-             if var == '#TEXT'
-              escape_single_quotes(cpr.content)
-            else
-              @concordion.get_variable(var) 
-            end
-          }
-        end
-        args = arg_values.join(",")
-       sut_rv = test_context.send(conc_method, *arg_values)  
+        sut_rv = test_context.send(conc_method, *arg_values_for(cpr))
     rescue NoMethodError => e
-      
-      if e.to_s =~ /nil:NilClass/
-        sut_rv = "[Parse failed for: #{cpr}, cause: (#{e})]"
-      else
-        method = method_from_no_method_error(e)
-        clazz = class_from_no_method_error(e)
-        sut_rv = "[Missing method '#{method}' in fixture #{clazz} ]"
-      end
+      sut_rv = report_error(e)
     end
     sut_rv
+  end
+
+  def report_error(e)
+    rv = nil
+    if e.to_s =~ /nil:NilClass/
+      rv = "[Parse failed for: #{cpr}, cause: (#{e})]"
+    else
+      method = method_from_no_method_error(e)
+      clazz = class_from_no_method_error(e)
+      rv = "[Missing method '#{method}' in fixture #{clazz} ]"
+    end
+    rv
   end
 
   def method_from_no_method_error(e)

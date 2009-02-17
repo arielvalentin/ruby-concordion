@@ -6,7 +6,6 @@ class ConcordionCSSDecorator
     if html.at("head").nil?
       root.search("html").prepend('<head></head>')
     end
-    #TODO add an environment variable for this?
     if type == :link
       link_to_css(html)
     else
@@ -51,19 +50,7 @@ class ConcordionCSSDecorator
     end
 
     tag[:class] = 'concordion_failure'
-    if cpr.is_verify_command?
-      if rv[:actual] > rv[:expected]
-        diff = rv[:actual] - rv[:expected]
-        tag.inner_html += "<tr><td>[#{diff} Surplus Row(s) Returned By Fixture]</td></tr>"
-      end
-    else
-      if cpr.is_assert_true_command?
-        tag.inner_html += ": expected true but received #{rv[:actual]}"
-      else
-        tag.inner_html += " expected but received #{rv[:actual]}"
-      end
-    end
-    #TODO refactor: move some of this logic into the conc parse result?
+    cpr.attribute_error(rv[:actual], rv[:expected])
     ConcordionErrorCondition.new(expected, rv[:actual], xpath, context, cpr.is_assert_true_command?)
   end
 end

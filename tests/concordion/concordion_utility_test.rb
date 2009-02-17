@@ -120,6 +120,7 @@ class ConcordionUtilityTest < Test::Unit::TestCase
   end
 
   def test_property_ref
+    assert_equal "#foo", concordion_property_reference("#foo")
     assert_equal "bar", concordion_property_reference("  #foo.bar ")
     assert_equal "bar.baz", concordion_property_reference("#for.bar.baz")
 
@@ -129,4 +130,6 @@ class ConcordionUtilityTest < Test::Unit::TestCase
     assert_equal "bar", singular("bars")
     assert_equal "foo", singular("foo")
   end
+
+  
 end

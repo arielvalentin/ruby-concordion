@@ -2,9 +2,18 @@ require 'concordion_test_case'
 require 'concordion_string_writer'
 
 require 'diff/lcs'
+module FailConditionally
+  def fail_if_write_still_enabled(cs, writer, data, name)
+    if cs.method_defined?(:write_goldmaster!)
+      writer.write(data, name)
 
+      raise RuntimeError.new("Disable write to goldmaster (erase write_goldmaster! in #{cs})")
+    end
+  end
+
+end
 class GoldmasterTestCase < ConcordionTestCase
-  
+  include FailConditionally
 
   def initialize(suite, conf = {})
     @writer = ConcordionStringWriter.new
@@ -21,13 +30,13 @@ class GoldmasterTestCase < ConcordionTestCase
     trivial
   end
 
+  def writer
+    ConcordionWriter.new
+  end
+
 
   def teardown
-    if self.class.method_defined?(:write_goldmaster!)
-      ConcordionWriter.new.write(@writer.data, snake_cased_goldmaster_name(self.class.to_s))
-
-      assert false, "Disable write to goldmaster (erase write_goldmaster! in #{self.class})"
-    end
+    fail_if_write_still_enabled(self.class, writer, @writer.data, snake_cased_goldmaster_name(self.class.to_s))
     
     unless is_trivial?
       goldmaster = ConcordionReader.new.read(snake_cased_goldmaster_name(self.class.to_s))
@@ -43,7 +52,4 @@ class GoldmasterTestCase < ConcordionTestCase
 
   end
   
-  def meths(o)
-    (o.methods - Object.methods).sort
-  end
 end

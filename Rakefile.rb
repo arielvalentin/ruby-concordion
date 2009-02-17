@@ -29,7 +29,7 @@ task :default => [:clean, :clobber_rdoc, :rdoc, :test]
 task :commit_prep => [:test, :clean, :clobber_rdoc]
 
 PKG_FILES = FileList['**/*'].exclude(/_test_output\.html$/)
-PKG_VERSION = '0.9.6'
+PKG_VERSION = '0.9.7'
 
 spec = Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
@@ -57,8 +57,13 @@ Rake::GemPackageTask.new(spec) { |package|
 
 require 'rcov/rcovtask'
 Rcov::RcovTask.new do |t|
-    t.libs << "test"
-    t.test_files = FileList['test/**/*_test.rb']
+    t.libs << "test-lib"
+  t.libs << "tests"
+  t.libs << "tests/goldmasters"
+  t.libs << "tests/tables"
+  t.libs << "tests/user-reported"
+
+    t.test_files = FileList['tests/**/*_test.rb']
     t.verbose = true
   end
 

@@ -26,8 +26,6 @@ class ConcordionInvoker
     clazz = e.to_s.split(":")[1]
     if clazz == 'NilClass'
       rv += "No more rows"
-    else
-      rv += " on #{clazz} but was not found"
     end
     rv += "]"
   end

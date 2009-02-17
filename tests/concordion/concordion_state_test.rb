@@ -9,6 +9,9 @@ class ConcordionStateTest < Test::Unit::TestCase
     @thingy = Thingy.new()
   end
 
+  def test_text_variable
+    assert_equal ConcordionState.TEXT_VAR, "#TEXT"
+  end
   def test_set_variable
     @concordion.set_variable("#foo", "bar")
 

@@ -38,6 +38,9 @@ class ConcordionParseResultTest < Test::Unit::TestCase
     assert_equal "#bob",  ConcordionParseResult.new("monkeys","#bob=asdf",nil,nil).assignment
   end
   
+  def test_to_s
+    assert_equal "Concordion command[], System under test method[#asdf], Tag Content[] Image Location[]", ConcordionParseResult.new(nil,"#asdf", nil,nil).to_s
+  end
   def test_needs_dereference
     assert ConcordionParseResult.new(nil,"#asdf", nil,nil).needs_dereference?
     assert !ConcordionParseResult.new(nil,"asdf", nil,nil).needs_dereference?

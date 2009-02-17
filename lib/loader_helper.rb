@@ -11,6 +11,6 @@ module LoaderHelper
       candidate = "#{path}/#{filename}"
       return candidate if File.exists?(candidate)
     end
-    throw Exception.new("could not find '#{filename}' on load path")
+    raise RuntimeError.new("could not find '#{filename}' on the system load path")
   end
 end

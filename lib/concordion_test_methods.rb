@@ -54,7 +54,12 @@ module ConcordionInternalTestMethods
   def parse_spec(filename,config)
     config[:parser].parse(filename)
     assert_concordion_document(config)
-    config[:decorator].add_concordion_css_link(config[:parser].root, config[:parser].html, config[:css_type])
+    if self.class.method_defined?(:css_type)
+      config[:decorator].add_concordion_css_link(config[:parser].root, config[:parser].html, css_type)
+    else
+      config[:decorator].add_concordion_css_link(config[:parser].root, config[:parser].html, config[:css_type])
+    end
+    
   end
 
   def run_spec(filename, config)

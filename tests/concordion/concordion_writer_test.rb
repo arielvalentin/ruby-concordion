@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'rubygems'
 require 'mocha'
-
+require 'concordion_writer'
 class ConcordionWriterTest < Test::Unit::TestCase
   def test_output_file_name
 

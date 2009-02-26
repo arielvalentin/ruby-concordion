@@ -1,0 +1,42 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+    <body>
+         <span>
+            <h1>Rubyish Annotations</h1>
+            <h4>Here is an example of some of the ways Ruby-Concordion is <i>rubyish</i>.</h4>
+
+            <blockquote>
+        &lt;span concordion:execute="#result = concat #TEXT, #TEXT"&gt;AA&lt;/span&gt;<br/>
+        &lt;span concordion:assertEquals="#result"&gt;AA:AA&lt;/span&gt;<br/>
+        &lt;span concordion:assertEquals="no_args"&gt;foo&lt;/span&gt;<br/>
+        &lt;span concordion:assertEquals="return_arg #TEXT"&gt;foo&lt;/span&gt;
+            </blockquote>
+            <h4> The relevent fragments of the tag are:</h4>
+            <ul>
+              <li>concat #TEXT, #TEXT - argument lists without parentheses.</li>
+              <li>no_args - direct method invocations, equivalent to 'no_args()'</li>
+            </ul>
+             <h4>And here's what it looks like:</h4>
+             <blockquote>
+        <span concordion:execute="#result = concat #TEXT, #TEXT">AA</span>
+        <span concordion:assertEquals="#result">AA:AA</span>
+        <span concordion:assertEquals="no_args">foo</span>
+        <span concordion:assertEquals="return_arg #TEXT">foo</span>
+          </blockquote>
+             <h4>And here are some other examples:</h4>
+             <blockquote>
+
+        <span concordion:set="#bar">bar</span>
+        <span concordion:set="#baz">baz</span>
+        <span concordion:assertEquals="concat #bar, #baz">bar:baz</span>
+        <span concordion:execute="#result = concat #baz, #TEXT">zab</span>
+        <span concordion:assertEquals="#result">baz:zab</span>
+        <span concordion:execute="#result = concat #TEXT, #bar">fed</span>
+        <span concordion:assertEquals="#result">fed:bar</span>
+          </blockquote>
+        </span>
+
+
+
+
+    </body>
+</html>

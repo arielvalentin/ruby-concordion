@@ -1,7 +1,24 @@
 <html xmlns:concordion="http://www.concordion.org/2007/concordion">
     <body>
-        <p concordion:execute="#result = split_name(#TEXT)">No Way</p>
-	<p concordion:assertEquals="#result.first">No</p>
-	<p concordion:assertEquals="#result.last">Way</p>
+           <span>
+            <h1>Returned Results</h1>
+            <h4>Here is an example of binding a ruby object to a concordion variable.</h4>
+            <blockquote>
+                Splitting the name &lt;quote concordion:execute="#result = split_name(#TEXT)"&gt;Ben Goodspeed&lt;/quote&gt;<br/>
+            	can return a real object with properties like 'first' which should be &lt;quote concordion:assertEquals="#result.first"&gt;Ben&lt;/quote&gt;<br/>
+        	and 'last' which is &lt;quote concordion:assertEquals="#result.last"&gt;Goodspeed&lt;/quote&gt;<br/>
+            </blockquote>
+            <h4> The relevent fragments of the tag are:</h4>
+            <ul>
+              <li>#result = split_name - invokes the split_name fixture method, and returns a name object</li>
+              <li>#result.first - obtains the "first" attribute from the returned object.</li>
+            </ul>
+             <h4>And here's what it looks like:</h4>
+             <blockquote>
+                    Splitting the name <quote concordion:execute="#result = split_name(#TEXT)">Ben Goodspeed</quote>
+                    can return a real object with properties like 'first' which should be <quote concordion:assertEquals="#result.first">Ben</quote>
+                    and 'last' which is <quote concordion:assertEquals="#result.last">Goodspeed</quote>.
+          </blockquote>
+        </span>
     </body>
 </html>

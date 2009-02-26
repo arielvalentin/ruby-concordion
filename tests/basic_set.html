@@ -1,11 +1,25 @@
 <html xmlns:concordion="http://www.concordion.org/2007/concordion">
     <body>
-      Here's some text
-        <p concordion:set="#username">Chuck Norris</p>
-        <p concordion:set="#mnks">Monkeys</p>
-        <p concordion:set="#mnks">Monkeys</p>
+      <span>
+          <h1>set</h1>
+          <h4>Here is an example of how to <i>set</i> a variable and use it in a subsequent tag.</h4>
+          <blockquote>
+            If my username is &lt;span concordion:set="#username"&gt;Chuck Norris&lt;/span&gt;<br/>
+            Then the system should greet me with &lt;span concordion:assertEquals="greetingFor(#username)"&gt;Hello Chuck Norris, you nancy-boy.&lt;/span&gt;
+          </blockquote>
+          <h4> The relevent fragments of the tag are:</h4>
+          <ul>
+              <li>set - tells concordion to bind the variable (whose name begins with #)</li>
+              <li>#username - the concordion variable name that will be bound to the tag contents</li>
+              <li>Chuck Norris - the value of the variable</li>
+              <li>greetingFor(#username) - invocation of a fixture method with the variable as an argument.</li>
+          </ul>
+             <h4>And here's what it looks like:</h4>
+             <blockquote>
+                If my username is <span concordion:set="#username">Chuck Norris</span><br/>
+                Then the system should greet me with <span concordion:assertEquals="greetingFor(#username)">Hello Chuck Norris, you nancy-boy.</span>
+             </blockquote>
 
-	<p concordion:assertEquals="greetingFor(#username)">Hello Chuck Norris, you nancy-boy.</p>
-	it should be in the output.
+      </span>
     </body>
 </html>

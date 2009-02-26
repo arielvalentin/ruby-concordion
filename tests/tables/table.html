@@ -1,11 +1,49 @@
 <html xmlns:concordion="http://www.concordion.org/2007/concordion">
   <body>
+
+         <span>
+            <h1>Tables</h1>
+            <h4>Here is an example of how to use <i>tables</i>.</h4>
+            <blockquote>
+
+  &lt;table&gt; <br/>
+      &lt;tr&gt;<br/>
+	&lt;th concordion:execute="#row_result = split_by_colons(#TEXT)"&gt;Given Text To Split By Colons and Uppercase:&lt;/th&gt;<br/>
+	&lt;th concordion:assertEquals="#row_result.alpha"&gt;The First Field is:&lt;/th&gt;<br/>
+	&lt;th concordion:assertEquals="#row_result.beta"&gt;The Second Field is:&lt;/th&gt;<br/>
+	&lt;th concordion:assertEquals="#row_result.gamma"&gt;The Third Field is:&lt;/th&gt;<br/>
+      &lt;/tr&gt;<br/>
+<br/>
+      &lt;tr&gt;<br/>
+	&lt;td&gt;a:b:c&lt;/td&gt;<br/>
+	&lt;td&gt;A&lt;/td&gt;<br/>
+	&lt;td&gt;B&lt;/td&gt;<br/>
+	&lt;td&gt;C&lt;/td&gt;<br/>
+      &lt;/tr&gt;<br/>
+
+      &lt;tr&gt;<br/>
+	&lt;td&gt;d:e:f&lt;/td&gt;<br/>
+	&lt;td&gt;D&lt;/td&gt;<br/>
+	&lt;td&gt;E&lt;/td&gt;<br/>
+	&lt;td&gt;F&lt;/td&gt;<br/>
+      &lt;/tr&gt;<br/>
+
+    &lt;/table&gt;<br/>
+
+            </blockquote>
+            <h4> The relevent fragments of the tag are:</h4>
+            <ul>
+              <li>execute - when placed on a table header (th) tag, the attribution is copied to all rows.</li>
+              <li>#row_result - rebound for each row by calling 'split_by_colons' with the first column's contents as an argument.</li>
+            </ul>
+             <h4>And here's what it looks like:</h4>
+             <blockquote>
     <table>
       <tr>
-	<th concordion:execute="#row_result = split_by_colons(#TEXT)">Given Text:</th>
-	<th concordion:assertEquals="#row_result.alpha">First Field:</th>
-	<th concordion:assertEquals="#row_result.beta">Second Field:</th>
-	<th concordion:assertEquals="#row_result.gamma">Third Field:</th>
+	<th concordion:execute="#row_result = split_by_colons(#TEXT)">Given Text To Split By Colons and Uppercase:</th>
+	<th concordion:assertEquals="#row_result.alpha">The First Field is:</th>
+	<th concordion:assertEquals="#row_result.beta">The Second Field is:</th>
+	<th concordion:assertEquals="#row_result.gamma">The Third Field is:</th>
       </tr>
 
       <tr>
@@ -21,8 +59,12 @@
 	<td>E</td>
 	<td>F</td>
       </tr>
-	
+
     </table>
+
+          </blockquote>
+        </span>
+
 
   </body>
 </html>

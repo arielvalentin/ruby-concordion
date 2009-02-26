@@ -1,9 +1,24 @@
 <html xmlns:concordion="http://www.concordion.org/2007/concordion">
     <body>
-        <p concordion:assertEquals="wrong_value()">right value</p>
-        <p concordion:assertEquals="wrong_value2()">right value</p>
-        <div>
-        <span concordion:assertEquals="wrong_value3()">right value</span>
-        </div>
+        <span>
+            <h1>Expected Failures</h1>
+            <h4>Here is an example of how to use concordion when you <i>expect failures</i></h4>
+             <blockquote>
+                I should get the &lt;span concordion:assertEquals="wrong_value()"&gt;right value&lt;/span&gt;.
+             </blockquote>
+            <h4>The relevent fragments of the fixture are:</h4>
+             <blockquote>
+                   def expected_failure_count<br/> 2<br/> end
+             </blockquote>
+            <h4>It should look like this:</h4>
+            <blockquote>
+                I should get the <span concordion:assertEquals="wrong_value()">right value</span>.
+            </blockquote>
+            <h4>Similary calling a method doesn't exist looks like this:</h4>
+            <blockquote>
+                I should get the <span concordion:assertEquals="a_method_that_does_not_exist">right value</span>.
+            </blockquote>
+        </span>
+        
     </body>
 </html>

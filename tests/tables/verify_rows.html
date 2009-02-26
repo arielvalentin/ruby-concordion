@@ -1,7 +1,62 @@
 <html xmlns:concordion="http://www.concordion.org/2007/concordion">
   <body>
-    <p>Given these users:</p>
 
+
+         <span>
+            <h1>Verify Rows</h1>
+            <h4>Here is an example of how to use the <i>verifyRows</i> command.</h4>
+            <blockquote>
+    &lt;p&gt;Given these users:&lt;/p&gt;<br/>
+    &lt;table&gt;<br/>
+        &lt;tr&gt;<br/>
+	  &lt;th concordion:set="#username"&gt;Username&lt;/th&gt;<br/>
+	  &lt;th concordion:execute="setupUser(#username, #TEXT)"&gt;Other&lt;/th&gt;<br/>
+	&lt;/tr&gt;<br/>
+        &lt;tr&gt;<br/>
+	  &lt;td&gt;john.lennon&lt;/td&gt;<br/>
+	  &lt;td&gt;monkeys&lt;/td&gt;<br/>
+	&lt;/tr&gt;<br/>
+        &lt;tr&gt;<br/>
+	  &lt;td&gt;ringo.starr&lt;/td&gt;<br/>
+	  &lt;td&gt;chucknorris&lt;/td&gt;<br/>
+	&lt;/tr&gt;<br/>
+        &lt;tr&gt;<br/>
+	  &lt;td&gt;george.harrison&lt;/td&gt;<br/>
+	  &lt;td&gt;dishwasher&lt;/td&gt;<br/>
+	&lt;/tr&gt;<br/>
+        &lt;tr&gt;<br/>
+	  &lt;td&gt;paul.mcartney&lt;/td&gt;<br/>
+	  &lt;td&gt;flamingweasel&lt;/td&gt;<br/>
+	&lt;/tr&gt;<br/>
+    &lt;/table&gt;<br/>
+<br/>
+    &lt;p&gt;Searching for "&lt;b concordion:set="#searchString"&gt;arr&lt;/b&gt;" will return:&lt;/p&gt;<br/>
+<br/>
+    &lt;table concordion:verifyRows="#users = getSearchResultsFor(#searchString)"&gt;<br/>
+        &lt;tr&gt;<br/>
+	  &lt;th concordion:assertEquals="#user.name"&gt;Matching Usernames&lt;/th&gt;<br/>
+	  &lt;th concordion:assertEquals="#user.other"&gt;and their Other field&lt;/th&gt;<br/>
+	&lt;/tr&gt;<br/>
+        &lt;tr&gt;<br/>
+	  &lt;td&gt;george.harrison&lt;/td&gt;<br/>
+	  &lt;td&gt;dishwasher&lt;/td&gt;<br/>
+	&lt;/tr&gt;<br/>
+        &lt;tr&gt;<br/>
+	  &lt;td&gt;ringo.starr&lt;/td&gt;<br/>
+	  &lt;td&gt;chucknorris&lt;/td&gt;<br/>
+	&lt;/tr&gt;<br/>
+    &lt;/table&gt;
+
+            </blockquote>
+            <h4> The relevent fragments of the tag are:</h4>
+            <ul>
+              <li>#users - collection variable.  Concordion iterates over this collection as it reads the table.  </li>
+              <li>#user - iteration variable.  Concordion automatically names this variable by singularizing the plural form collection variable.  It is updated from the collection by the current table row index.</li>
+              <li>assertEquals - on a table header (th) tag,  this annotation is copied to all rows beneath it.</li>
+            </ul>
+             <h4>And here's what it looks like:</h4>
+             <blockquote>
+    <p>Given these users:</p>
     <table>
         <tr>
 	  <th concordion:set="#username">Username</th>
@@ -41,6 +96,10 @@
 	  <td>chucknorris</td>
 	</tr>
     </table>
+
+          </blockquote>
+        </span>
+
   </body>
 </html>
  

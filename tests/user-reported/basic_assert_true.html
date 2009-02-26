@@ -1,6 +1,29 @@
 <html xmlns:concordion="http://www.concordion.org/2007/concordion">
 <body>
-  <p concordion:assertTrue="is_boiling_point(#TEXT)">212</p>
-  <p concordion:assertTrue="is_boiling_point(#TEXT)">211</p>
+
+      <span>
+            <h1>assertTrue</h1>
+            <h4>Here is an example of how to use the <i>assertTrue</i> command.</h4>
+            <blockquote>
+  
+  The boiling point of water (in Farenheit) is &lt;p concordion:assertTrue="is_boiling_point(#TEXT)"&gt;212&lt;/p&gt;.
+
+  </blockquote>
+            <h4> The relevent fragments of the tag are:</h4>
+            <ul>
+              <li>#TEXT - bound to the contents out the tag, in this case 'Goodspeed'</li>
+            </ul>
+             <h4>And here's what it looks like:</h4>
+             <blockquote>
+                 The boiling point of water (in Farenheit) is <i concordion:assertTrue="is_boiling_point(#TEXT)">212</i>.
+          </blockquote>
+             <h4>And here's what a failure looks like:</h4>
+          <blockquote>
+                The boiling point of water (in Farenheit) is<i concordion:assertTrue="is_boiling_point(#TEXT)">211</i>.
+          </blockquote>
+        </span>
+
+  
+
 </body>
 </html>

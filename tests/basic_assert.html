@@ -1,5 +1,23 @@
 <html xmlns:concordion="http://www.concordion.org/2007/concordion">
     <body>
-        <b concordion:assertEquals="getGreeting()">Hello World!</b>
+        <span>
+            <h1>assertEquals</h1>
+            <h4> Here is an example of a basic assertion made with <b>assertEquals.</b></h4>
+            <blockquote>
+                The greeting should be &lt;b concordion:assertEquals="getGreeting()"&gt;Hello World!&lt;/b&gt;.
+            </blockquote>
+            <h4> The relevent fragments of the tag are:</h4>
+             <ul>
+                 <li>concordion - a namespace that browsers will not attempt to interpret.</li>
+                 <li>assertEquals - the concordion command to invoke.</li>
+                 <li>getGreeting - the fixture method to invoke, delegating to the system under test.</li>
+                 <li>Hello World! - the expected output from the fixture.</li>
+             </ul>
+             <h4>And here's what it looks like:</h4>
+             <blockquote>
+                The greeting should be <b concordion:assertEquals="getGreeting()">Hello World!</b>.
+            </blockquote>
+
+        </span>
     </body>
 </html>

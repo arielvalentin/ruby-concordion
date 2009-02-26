@@ -1,5 +1,17 @@
 <html xmlns:concordion="http://www.concordion.org/2007/concordion">
     <body>
-        <b concordion:assertEquals="getGreeting()">Hello World!</b>
+        <span>
+            <h1>Linked Concordion CSS</h1>
+            <h4>Here's an example of how to make concordion link to concordion.css rather than inlining the styles.</h4>
+            <h4>The relevent fragments of the fixture are:</h4>
+            <blockquote>
+                 def css_type;     :link ; end
+            </blockquote>
+
+            <h4>And here's what it looks like:</h4>
+            <blockquote>
+                <b concordion:assertEquals="getGreeting()">Hello World!</b>
+            </blockquote>
+        </span>
     </body>
 </html>

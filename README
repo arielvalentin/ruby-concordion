@@ -7,4 +7,6 @@ active specifications which automatically validate the behavior of the system.
 
 See the project homepage at: http://code.google.com/p/rcor/
 
+To learn more look at the specifications in the "tests/" directory, they are viewable in a browser.  They serve as both the user manual and the regression test suite for the system.
+
 Ruby Concordion was written by Ben Goodspeed of Goodspeed IT Consulting: http://goodspeed-it.ca/

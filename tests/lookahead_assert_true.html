@@ -1,17 +1,39 @@
 <html xmlns:concordion="http://www.concordion.org/2007/concordion">
 <body>
-  <p>The greeting for user <span concordion:set="#firstName">Bob</span>
-     will be:
+    <span>
+        <h1>Lookahead</h1>
+        <h4>Concordion will <i>lookahead</i> in nested tags to bind variables.</h4>
+        <blockquote>
+          &lt;p&gt;When  &lt;span concordion:set="#firstName"&gt;Bob&lt;/span&gt; logs in he will be greeted with: <br/>
+            &lt;span concordion:assertEquals="greeting_for(#firstName)"&gt;Hello Bob!&lt;/span&gt; <br/>
+          &lt;/p&gt; <br/>
+            &lt;p&gt;The first name <br/>
+                &lt;span concordion:assertTrue="starts_with(#firstName, #letter)"&gt;starts <br/>
+                 with &lt;b concordion:set="#letter"&gt;B&lt;/b&gt;&lt;/span&gt;.<br/>
+            &lt;/p&gt;
+
+        </blockquote>
+            <h4> The relevent fragments of the tag are:</h4>
+            <ul>
+                <li>#firstname - stays bound as "Bob" throughout</li>
+                <li>#letter - referenced in assertTrue before its bound</li>
+            </ul>
+         <h4>And here's what it looks like:</h4>
+<blockquote>
+  <p>When  <span concordion:set="#firstName">Bob</span>
+     logs in he will be greeted with:
      <span concordion:assertEquals="greeting_for(#firstName)">Hello Bob!</span>
   </p>
-  
   <p>The first name
      <span concordion:assertTrue="starts_with(#firstName, #letter)">starts
      with <b concordion:set="#letter">B</b></span>.
   </p>
+</blockquote>
+         <h4>Some more examples:</h4>
+<blockquote>
 
   <p>The first name
-     <span concordion:assertTrue="not_starts_with(#firstName, #letter)">starts
+     <span concordion:assertTrue="not_starts_with(#firstName, #letter)">does not start
      with <b concordion:set="#letter">Z</b></span>.
   </p>
 
@@ -19,7 +41,8 @@
      <span concordion:assertTrue="starts_with(#firstName, #letter)">starts
      with <b concordion:set="#letter">B</b></span>.
   </p>
-
+  </blockquote>
+</span>
 
   </body>
 </html>

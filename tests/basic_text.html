@@ -1,14 +1,24 @@
 <html xmlns:concordion="http://www.concordion.org/2007/concordion">
     <body>
-        <p concordion:execute="set_name(#TEXT)">No</p>
-	<p concordion:assertEquals="double_down()">NoNo</p>
-        
-	<p concordion:execute="#result = return_arg(#TEXT)">Working Text</p>
-	<p concordion:assertEquals="#result">Working Text</p>
-        
-	<p concordion:execute="#result = concat(#TEXT,#TEXT)">Working Text 2</p>
-	<p concordion:assertEquals="#result">Working Text 2:Working Text 2</p>
-        
+        <span>
+            <h1>#TEXT</h1>
+            <h4>Here is an example of how to use the implicit concordion <i>#TEXT</i> variable.</h4>
+            <blockquote>
+                When joining &lt;quote concordion:execute="#result = concat(#TEXT,#TEXT)"&gt;Goodspeed&lt;/quote&gt; with itself <br/>
+            	the result should be:  &lt;quote concordion:assertEquals="#result"&gt;Goodspeed:Goodspeed&lt;/quote&gt;.
+            </blockquote>
+            <h4> The relevent fragments of the tag are:</h4>
+            <ul>
+              <li>#TEXT - bound to the contents out the tag, in this case 'Goodspeed'</li>
+              <li>concat - the fixture method being given 'Goodspeed', 'Goodspeed' as arguments.</li>
+              <li>#result - the concordion variable to store the result in.</li>
+            </ul>
+             <h4>And here's what it looks like:</h4>
+             <blockquote>
+                When joining <quote concordion:execute="#result = concat(#TEXT,#TEXT)">Goodspeed</quote> with itself
+                the result should be:  <quote concordion:assertEquals="#result">Goodspeed:Goodspeed</quote>.
+          </blockquote>
+        </span>
         
     </body>
 </html>

@@ -1,5 +1,22 @@
 <html xmlns:concordion="http://www.concordion.org/2007/concordion">
     <body>
-        <p concordion:assertEquals="easy">as pie</p>
+         <span>
+            <h1>Mixing Base Classes</h1>
+            <h4>Here is an example of how to use concordion with a different <i>base class</i> .</h4>
+            <blockquote>
+                It's as easy &lt;span&gt; concordion:assertEquals="easy">as pie&lt;/span&gt;
+            </blockquote>
+            <h4> The relevent fragments of the fixture are:</h4>
+            <ul>
+              <li>class MixedTest &lt; Test::Unit::TestCase  - no need to descend from ConcordionTestCase.</li>
+              <li>include ConcordionTestMethods  - makes any test case a concordion test case. No need to descend from ConcordionTestCase.</li>
+            </ul>
+             <h4>And here's what it looks like:</h4>
+             <blockquote>
+                It's as easy <span concordion:assertEquals="easy">as pie</span>
+          </blockquote>
+        </span>
+
+
     </body>
 </html>
